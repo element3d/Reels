@@ -2,53 +2,57 @@
 #include <e3/Typography.h>
 #include "FrameElement.h"
 #include "Timeline.h"
+#include "EffectZoomOut.h"
+#include "TransitionZoomOut.h"
 
 Application::Application(const std::string& applicationName, e3::EE3OS os, e3::EE3Target target, e3::Size2i windowSize, e3::Size2i resolution) 
 	: ApplicationBase(applicationName, os, target, windowSize, resolution)
 {
 	e3::Typography::AddFont("facon", e3::EFontStyle::Normal, "RidersReels/fonts/facon.ttf");
-
-
 	mMain = new e3::Element();
 
-	mLayer1Element = new e3::Element();
-	mLayer1Element->SetWidth("100%");
-	mLayer1Element->SetHeight("100%");
-	mLayer1Element->SetPositionType(e3::EPositionType::Absolute);
-	mMain->AddElement(mLayer1Element);
-
-	FrameElement* e = new FrameElement();
-	e->SetImage("RidersReels/img.jpg");
-
-	mLayer1Element->AddElement(e);
+	FrameElement* pImage1Frame = new FrameElement();
+	e3::Element* pImage1 = new e3::Element();
+	pImage1->SetBackgroundImageAsset("RidersReels/img.jpg");
+	pImage1->SetBackgroundImageFit(e3::EBackgroundSize::Cover);
+	pImage1Frame->SetBeginTime(0);
+	pImage1Frame->SetLayer(0);
+	pImage1Frame->SetElement(pImage1, EFrameElementType::Image);
+	mMap[0] = pImage1Frame;
+	TransitionZoomOut* pTransition1 = new TransitionZoomOut(1.4, 1.1, 0.05);
+	pImage1Frame->SetBeginTransition(pTransition1);
 	PushElement(mMain);
+	EffectZoomOut* pEffectZoomOut1 = new EffectZoomOut(1.1, 1.0, 0.05, 4);
+	pImage1Frame->AddEffect(pEffectZoomOut1);
 
-	e3::Element* e2 = new e3::Element();
-	e2->SetBackgroundImageAsset("RidersReels/img2.jpg");
-	e2->SetBackgroundImageFit(e3::EBackgroundSize::Cover);
+	FrameElement* pImage2Frame = new FrameElement();
+	e3::Element* pImage2 = new e3::Element();
+	pImage2->SetBackgroundImageAsset("RidersReels/img2.jpg");
+	pImage2->SetBackgroundImageFit(e3::EBackgroundSize::Cover);
+	pImage2Frame->SetBeginTime(4000);
+	pImage2Frame->SetLayer(0);
+	pImage2Frame->SetElement(pImage2, EFrameElementType::Image);
+	mMap[4000] = pImage2Frame;
+	TransitionZoomOut* pTransition2 = new TransitionZoomOut(1.4, 1.1, 0.05);
+	pImage2Frame->SetBeginTransition(pTransition2);
+	EffectZoomOut* pEffectZoomOut2 = new EffectZoomOut(1.1, 1.0, 4050, 4);
+	pImage2Frame->AddEffect(pEffectZoomOut2);
 
-	AnimateElement(e, e2);
-
+	FrameElement* pRidersFrame = new FrameElement();
 	e3::Text* t = new e3::Text();
 	t->SetText("RIDERS");
 	t->SetFontFamily("facon");
 	t->SetFontSize(50);
 	t->SetTextColor(glm::vec4(195, 251, 18, 255));
-	e->SetAlignItemsHor(e3::EAlignment::Center);
-	e->SetAlignItemsVer(e3::EAlignment::Center);
-
-	mLayer2Element = new e3::Element();
-	mLayer2Element->SetWidth("100%");
-	mLayer2Element->SetHeight("100%");
-	mLayer2Element->SetPositionType(e3::EPositionType::Absolute);
-	mMain->AddElement(mLayer2Element);
-	mLayer2Element->AddElement(t);
-	Timeline::Get()->Begin();
+	pRidersFrame->SetElement(t, EFrameElementType::Text);
+	pRidersFrame->SetLayer(1);
+	pRidersFrame->SetBeginTime(1000);
+	mMap[1000] = pRidersFrame;
 }
 
 void Application::AnimateElement(e3::Element* e, e3::Element* next)
 {
-	e3::Animation* a = new e3::Animation(e);
+	/*e3::Animation* a = new e3::Animation(e);
 	a->Start(0.05, 1.4, 1.1, [e](float v){
 		e->SetScale(glm::vec3(v, v, 1), e3::ETransformAlignment::Center);
 		e->SetRotation(v*10, glm::vec3(0, 0, 1), e3::ETransformAlignment::Center);
@@ -65,7 +69,7 @@ void Application::AnimateElement(e3::Element* e, e3::Element* next)
 				AnimateElement(next, nullptr);
 			}
 		});
-	});
+	});*/
 }
 
 
@@ -76,6 +80,42 @@ void Application::OnResize(float width, float height)
 
 void Application::Render()
 {
+	if (mFirstFrame) 
+	{
+		mFirstFrame = false;
+		Timeline::Get()->Begin();
+	}
 	Timeline::Get()->OnFrame();
+	long time = Timeline::Get()->GetTime();
+	FrameElement* pFrame = nullptr;
+	if (mMap.size())
+	{
+		auto it = mMap.begin(); 
+		long t = it->first;    
+		pFrame = it->second; 
+
+		if (t <= time) 
+		{
+			int layer = pFrame->GetLayer();
+			e3::Element* pLayer = nullptr;
+			if (mLayers.size() <= layer) 
+			{
+				pLayer = new e3::Element();
+				pLayer->SetWidth("100%");
+				pLayer->SetHeight("100%");
+				pLayer->SetPositionType(e3::EPositionType::Absolute);
+				mLayers.push_back(pLayer);
+				mMain->AddElement(pLayer);
+			}
+			else 
+			{
+				pLayer = mLayers[layer];
+			}
+			pLayer->RemoveAllElements();
+			pLayer->AddElement(pFrame);
+			mMap.erase(it);
+		}
+
+	}
 	e3::Application::Render();
 }

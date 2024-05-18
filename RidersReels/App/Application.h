@@ -2,6 +2,8 @@
 #define __Application_H__
 
 #include "private/ApplicationBase.h"
+#include "FrameElement.h"
+#include <map>
 
 class Application : public ApplicationBase
 {
@@ -14,8 +16,11 @@ public:
     virtual void Render() override;
 
     e3::Element* mMain = nullptr;
-    e3::Element* mLayer1Element = nullptr;
-    e3::Element* mLayer2Element = nullptr;
+  //  e3::Element* mLayer1Element = nullptr;
+   // e3::Element* mLayer2Element = nullptr;
+    std::vector<e3::Element*> mLayers;
+    std::map<long, FrameElement*> mMap;
+    bool mFirstFrame = true;
 };
 
 #endif // __Application_H__

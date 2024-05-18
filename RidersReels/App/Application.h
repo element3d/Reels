@@ -13,6 +13,7 @@ public:
 	void OnResize(float width, float height) override;
 
     e3::Element* mMain = nullptr;
+    e3::Element* mLayer1Element = nullptr;
     e3::Element* mLayer2Element = nullptr;
 };
 

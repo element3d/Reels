@@ -9,12 +9,19 @@ Application::Application(const std::string& applicationName, e3::EE3OS os, e3::E
 
 
 	mMain = new e3::Element();
+
+	mLayer1Element = new e3::Element();
+	mLayer1Element->SetWidth("100%");
+	mLayer1Element->SetHeight("100%");
+	mLayer1Element->SetPositionType(e3::EPositionType::Absolute);
+	mMain->AddElement(mLayer1Element);
+
 	FrameElement* e = new FrameElement();
 	e->SetImage("RidersReels/img.jpg");
 	// e->SetBackgroundImageFit(e3::EBackgroundSize::Cover);
 	// e->SetWidth("100%");
 	//e->SetHeight("100%");
-	mMain->AddElement(e);
+	mLayer1Element->AddElement(e);
 	PushElement(mMain);
 
 	e3::Element* e2 = new e3::Element();
@@ -32,8 +39,11 @@ Application::Application(const std::string& applicationName, e3::EE3OS os, e3::E
 	e->SetAlignItemsVer(e3::EAlignment::Center);
 
 	mLayer2Element = new e3::Element();
-
-	mMain->AddElement(t);
+	mLayer2Element->SetWidth("100%");
+	mLayer2Element->SetHeight("100%");
+	mLayer2Element->SetPositionType(e3::EPositionType::Absolute);
+	mMain->AddElement(mLayer2Element);
+	mLayer2Element->AddElement(t);
 
 }
 
@@ -51,8 +61,8 @@ void Application::AnimateElement(e3::Element* e, e3::Element* next)
 		}, [next,e, this](){
 			if (next) 
 			{
-				mMain->RemoveElement(e);
-				mMain->AddElement(next);
+				mLayer1Element->RemoveElement(e);
+				mLayer1Element->AddElement(next);
 				AnimateElement(next, nullptr);
 			}
 		});

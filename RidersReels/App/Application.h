@@ -11,6 +11,7 @@ public:
     void AnimateElement(e3::Element* e, e3::Element* next);
 public:
 	void OnResize(float width, float height) override;
+    virtual void Render() override;
 
     e3::Element* mMain = nullptr;
     e3::Element* mLayer1Element = nullptr;

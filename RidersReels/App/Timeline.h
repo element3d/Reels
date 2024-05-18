@@ -9,4 +9,11 @@ public:
     static Timeline* Get();
 
     Timeline();
+    void Begin();
+    void OnFrame();
+    double GetTime();
+
+private:
+    std::chrono::time_point<std::chrono::high_resolution_clock> mStartTime;
+    std::chrono::time_point<std::chrono::high_resolution_clock> mCurrentTime;
 };

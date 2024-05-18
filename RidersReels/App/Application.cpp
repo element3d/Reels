@@ -1,6 +1,7 @@
 #include "Application.h"
 #include <e3/Typography.h>
 #include "FrameElement.h"
+#include "Timeline.h"
 
 Application::Application(const std::string& applicationName, e3::EE3OS os, e3::EE3Target target, e3::Size2i windowSize, e3::Size2i resolution) 
 	: ApplicationBase(applicationName, os, target, windowSize, resolution)
@@ -18,9 +19,7 @@ Application::Application(const std::string& applicationName, e3::EE3OS os, e3::E
 
 	FrameElement* e = new FrameElement();
 	e->SetImage("RidersReels/img.jpg");
-	// e->SetBackgroundImageFit(e3::EBackgroundSize::Cover);
-	// e->SetWidth("100%");
-	//e->SetHeight("100%");
+
 	mLayer1Element->AddElement(e);
 	PushElement(mMain);
 
@@ -44,7 +43,7 @@ Application::Application(const std::string& applicationName, e3::EE3OS os, e3::E
 	mLayer2Element->SetPositionType(e3::EPositionType::Absolute);
 	mMain->AddElement(mLayer2Element);
 	mLayer2Element->AddElement(t);
-
+	Timeline::Get()->Begin();
 }
 
 void Application::AnimateElement(e3::Element* e, e3::Element* next)
@@ -73,4 +72,10 @@ void Application::AnimateElement(e3::Element* e, e3::Element* next)
 void Application::OnResize(float width, float height)
 {
 
+}
+
+void Application::Render()
+{
+	Timeline::Get()->OnFrame();
+	e3::Application::Render();
 }

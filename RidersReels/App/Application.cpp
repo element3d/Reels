@@ -7,6 +7,9 @@
 #include "TransitionZoomIn.h"
 #include "TransitionFadeIn.h"
 #include "TransitionFadeOut.h"
+#include "MediaAnimatedText.h"
+#include "MediaCarCard.h"
+#include "MediaAnimatedText2.h"
 
 Application::Application(const std::string& applicationName, e3::EE3OS os, e3::EE3Target target, e3::Size2i windowSize, e3::Size2i resolution) 
 	: ApplicationBase(applicationName, os, target, windowSize, resolution)
@@ -15,6 +18,7 @@ Application::Application(const std::string& applicationName, e3::EE3OS os, e3::E
 	mMain = new e3::Element();
 
 	FrameElement* pImage1Frame = new FrameElement();
+	pImage1Frame->SetDuration(4000);
 	e3::Element* pImage1 = new e3::Element();
 	pImage1->SetBackgroundImageAsset("RidersReels/img.jpg");
 	pImage1->SetBackgroundImageFit(e3::EBackgroundSize::Cover);
@@ -44,16 +48,16 @@ Application::Application(const std::string& applicationName, e3::EE3OS os, e3::E
 	FrameElement* pRidersTitleOverlayFrame = new FrameElement();
 	pRidersTitleOverlayFrame->SetDuration(2000);
 	e3::Element* pRidersTitleOverlay = new e3::Element();
-	pRidersTitleOverlay->SetBackgroundColor(glm::vec4(0, 0, 0, 255));
+	pRidersTitleOverlay->SetBackgroundColor(glm::vec4(7, 19, 45, 255));
 	pRidersTitleOverlay->SetWidth("100%");
 	pRidersTitleOverlay->SetHeight("100%");
 	pRidersTitleOverlayFrame->SetElement(pRidersTitleOverlay, EFrameElementType::Element);
 	pRidersTitleOverlayFrame->SetLayer(1);
-	pRidersTitleOverlayFrame->SetBeginTime(1000);
-	mFrameElementPushMap[1000].push_back(pRidersTitleOverlayFrame);
-	TransitionFadeIn* pFadeInRidersTitle = new TransitionFadeIn(0, 0.3, 0.1);
+	pRidersTitleOverlayFrame->SetBeginTime(2000);
+	mFrameElementPushMap[2000].push_back(pRidersTitleOverlayFrame);
+	TransitionFadeIn* pFadeInRidersTitle = new TransitionFadeIn(0, 0.7, 0.1);
 	pRidersTitleOverlayFrame->SetBeginTransition(pFadeInRidersTitle);
-	TransitionFadeOut* pFadeOutRidersTitle = new TransitionFadeOut(0.3, 0.0, 0.1);
+	TransitionFadeOut* pFadeOutRidersTitle = new TransitionFadeOut(0.7, 0.0, 0.1);
 	pRidersTitleOverlayFrame->SetEndTransition(pFadeOutRidersTitle);
 
 	FrameElement* pRidersFrame = new FrameElement();
@@ -65,12 +69,36 @@ Application::Application(const std::string& applicationName, e3::EE3OS os, e3::E
 	t->SetTextColor(glm::vec4(195, 251, 18, 255));
 	pRidersFrame->SetElement(t, EFrameElementType::Text);
 	pRidersFrame->SetLayer(2);
-	pRidersFrame->SetBeginTime(1000);
-	mFrameElementPushMap[1000].push_back(pRidersFrame);
-	TransitionZoomOut* pZoomOutRidersTitle = new TransitionZoomOut(1.4, 1.0, 0.1);
+	pRidersFrame->SetBeginTime(2000);
+	mFrameElementPushMap[2000].push_back(pRidersFrame);
+	TransitionZoomOut* pZoomOutRidersTitle = new TransitionZoomOut(1.4, 1.0, 0.06);
 	pRidersFrame->SetBeginTransition(pZoomOutRidersTitle);
-	TransitionZoomIn* pZoomInRidersTitle = new TransitionZoomIn(1.0, 1.2, 0.05);
+	TransitionZoomIn* pZoomInRidersTitle = new TransitionZoomIn(1.0, 1.2, 0.03);
 	pRidersFrame->SetEndTransition(pZoomInRidersTitle);
+
+	MediaAnimatedText* pRidersAmText = new MediaAnimatedText();
+	pRidersAmText->SetDuration(2000);
+	pRidersAmText->SetLayer(3);
+	pRidersAmText->SetBeginTime(2330);
+	mFrameElementPushMap[2330].push_back(pRidersAmText);
+
+	MediaCarCard* pMediaCarCar = new MediaCarCard();
+	pMediaCarCar->SetDuration(2000);
+	pMediaCarCar->SetLayer(1);
+	pMediaCarCar->SetBeginTime(4000);
+	mFrameElementPushMap[4000].push_back(pMediaCarCar);
+
+	MediaAnimatedText2* pMakeMedia = new MediaAnimatedText2(220, 70);
+	pMakeMedia->SetDuration(2000);
+	pMakeMedia->SetLayer(2);
+	pMakeMedia->SetBeginTime(4000);
+	mFrameElementPushMap[4000].push_back(pMakeMedia);
+
+	MediaAnimatedText2* pModelMedia = new MediaAnimatedText2(220, 110);
+	pModelMedia->SetDuration(2000);
+	pModelMedia->SetLayer(3);
+	pModelMedia->SetBeginTime(4000);
+	mFrameElementPushMap[4000].push_back(pModelMedia);
 }
 
 void Application::AnimateElement(e3::Element* e, e3::Element* next)
@@ -136,7 +164,7 @@ void Application::Render()
 				{
 					pLayer = mLayers[layer];
 				}
-				pLayer->RemoveAllElements();
+			//	pLayer->RemoveAllElements();
 				pLayer->AddElement(pFrame);
 
 				if (pFrame->GetDuration() > 0) 

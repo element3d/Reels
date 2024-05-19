@@ -28,7 +28,7 @@ public:
     void AddEffect(Effect* pE);
     virtual void Render() override;
 
-private:
+protected:
     e3::Element* mElement = nullptr;
     EFrameElementType mType;
     long mBeginTime = 0;

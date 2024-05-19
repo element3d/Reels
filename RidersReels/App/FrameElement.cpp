@@ -39,6 +39,12 @@ void FrameElement::SetBeginTransition(Transition* pT)
     mBeginTransition = pT; 
 }
 
+void FrameElement::SetEndTransition(Transition* pT)
+{
+    pT->SetFrameElement(this);
+    mEndTransition = pT; 
+}
+
 void FrameElement::AddEffect(Effect* pE)
 {
     pE->SetFrameElement(this);
@@ -54,6 +60,17 @@ void FrameElement::Render()
     }
 
     long time = Timeline::Get()->GetTime();
+
+    if (mEndTransition && mDuration > 0) 
+    {
+        double t = mBeginTime + mDuration - mEndTransition->GetDuration();
+        if (t <= time) 
+        {
+            mEndTransition->Start();
+            mEndTransition = nullptr;
+        }
+    }
+
     Effect* pEffect = nullptr;
     if (mEffects.size())
     {

@@ -3,10 +3,10 @@
 #include "Transition.h"
 
 class FrameElement;
-class TransitionZoomOut : public Transition 
+class TransitionZoomIn : public Transition 
 {
 public:
-	TransitionZoomOut(float beginZoom, float endZoom, float duratoin);
+	TransitionZoomIn(float beginZoom, float endZoom, float duratoin);
 	virtual void Start() override;
 
 private:

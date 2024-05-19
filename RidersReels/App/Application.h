@@ -19,7 +19,8 @@ public:
   //  e3::Element* mLayer1Element = nullptr;
    // e3::Element* mLayer2Element = nullptr;
     std::vector<e3::Element*> mLayers;
-    std::map<long, FrameElement*> mMap;
+    std::map<long, std::vector<FrameElement*>> mFrameElementPushMap;
+    std::map<long, std::vector<FrameElement*>> mFrameElementPopMap;
     bool mFirstFrame = true;
 };
 

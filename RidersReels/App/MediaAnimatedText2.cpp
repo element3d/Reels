@@ -1,7 +1,7 @@
 #include "MediaAnimatedText2.h"
 #include <e3/Text.h>
 
-MediaAnimatedText2::MediaAnimatedText2(int x, int y, e3::Element* pParent) 
+MediaAnimatedText2::MediaAnimatedText2(int x, int y, const std::string& text, e3::Element* pParent) 
 	: FrameElement(pParent)
 {
 	e3::Element* pElement = new e3::Element();
@@ -9,22 +9,41 @@ MediaAnimatedText2::MediaAnimatedText2(int x, int y, e3::Element* pParent)
 	pElement->SetHeight("100%");
 	SetElement(pElement, EFrameElementType::Element);
 
-	e3::Element* pTextWrap = new e3::Element();
-	pTextWrap->SetPositionType(e3::EPositionType::Absolute);
-	pTextWrap->SetTop(y);
-	pTextWrap->SetLeft(x);
-	pTextWrap->SetHeight(30);
-	pTextWrap->SetPaddingLeft(5);
-	pTextWrap->SetPaddingRight(5);
-	pTextWrap->SetBackgroundColor(glm::vec4(255));
-	pElement->AddElement(pTextWrap);
+	mTextWrap = new e3::Element();
+	mTextWrap->SetPositionType(e3::EPositionType::Absolute);
+	mTextWrap->SetOverflow(e3::EOverflow::Hidden);
+	mTextWrap->SetAlignItemsHor(e3::EAlignment::Start);
+	mTextWrap->SetTop(y);
+	mTextWrap->SetLeft(x);
+	mTextWrap->SetHeight(30);
+	mTextWrap->SetPaddingLeft(5);
+	mTextWrap->SetPaddingRight(5);
+	mTextWrap->SetBackgroundColor(glm::vec4(255));
+	pElement->AddElement(mTextWrap);
 
-	e3::Text* pText = new e3::Text();
-	pText->SetText("MERCEDES BENZ");
-	pText->SetFontSize(20);
-	pText->SetFontStyle(e3::EFontStyle::Bold);
-	pText->SetTextColor(glm::vec4(0, 0, 0, 255));
-	pTextWrap->AddElement(pText);
+	mText = new e3::Text();
+	mText->SetText(text);
+	mText->SetFontSize(20);
+	mText->SetFontStyle(e3::EFontStyle::Bold);
+	mText->SetTextColor(glm::vec4(0, 0, 0, 255));
+	mTextWrap->AddElement(mText);
 }
 
-
+void MediaAnimatedText2::Render()
+{
+	if (mFirstFrame) 
+	{
+		mFirstFrame = false;
+		mTextWrap->UpdateGeometry();
+		float w = mText->GetGeometry().width;
+		e3::Animation* pA = new e3::Animation(this);
+		pA->Start(0.5, [this](float v){
+			mTextWrap->SetWidth((mText->GetGeometry().width + 10) * v);
+		}, [](){
+			
+		});
+		return;
+	}
+	float w = mText->GetGeometry().width;
+	FrameElement::Render();
+}

@@ -37,5 +37,5 @@ protected:
     Transition* mBeginTransition = nullptr;
     Transition* mEndTransition = nullptr;
     bool mFirstFrame = true;
-    std::map<long, Effect*> mEffects;
+    std::map<long, std::vector<Effect*>> mEffects;
 };

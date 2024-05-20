@@ -10,6 +10,8 @@
 #include "MediaAnimatedText.h"
 #include "MediaCarCard.h"
 #include "MediaAnimatedText2.h"
+#include "MediaStars.h"
+#include "EffectRotation.h"
 
 Application::Application(const std::string& applicationName, e3::EE3OS os, e3::EE3Target target, e3::Size2i windowSize, e3::Size2i resolution) 
 	: ApplicationBase(applicationName, os, target, windowSize, resolution)
@@ -26,11 +28,13 @@ Application::Application(const std::string& applicationName, e3::EE3OS os, e3::E
 	pImage1Frame->SetLayer(0);
 	pImage1Frame->SetElement(pImage1, EFrameElementType::Image);
 	mFrameElementPushMap[0].push_back(pImage1Frame);
-	TransitionZoomOut* pTransition1 = new TransitionZoomOut(1.4, 1.1, 0.05);
+	TransitionZoomOut* pTransition1 = new TransitionZoomOut(1.2, 1.1, 0.05);
 	pImage1Frame->SetBeginTransition(pTransition1);
 	PushElement(mMain);
-	EffectZoomOut* pEffectZoomOut1 = new EffectZoomOut(1.1, 1.0, 0.05, 4);
+	EffectZoomOut* pEffectZoomOut1 = new EffectZoomOut(1.1, 1.0, 50, 4);
 	pImage1Frame->AddEffect(pEffectZoomOut1);
+	EffectRotation* pEffectRotation1 = new EffectRotation(8, 5, 0, 4);
+	pImage1Frame->AddEffect(pEffectRotation1);
 
 	FrameElement* pImage2Frame = new FrameElement();
 	e3::Element* pImage2 = new e3::Element();
@@ -40,22 +44,24 @@ Application::Application(const std::string& applicationName, e3::EE3OS os, e3::E
 	pImage2Frame->SetLayer(0);
 	pImage2Frame->SetElement(pImage2, EFrameElementType::Image);
 	mFrameElementPushMap[4000].push_back(pImage2Frame);
-	TransitionZoomOut* pTransition2 = new TransitionZoomOut(1.4, 1.1, 0.05);
+	TransitionZoomOut* pTransition2 = new TransitionZoomOut(1.2, 1.1, 0.1);
 	pImage2Frame->SetBeginTransition(pTransition2);
-	EffectZoomOut* pEffectZoomOut2 = new EffectZoomOut(1.1, 1.0, 4050, 4);
+	EffectZoomOut* pEffectZoomOut2 = new EffectZoomOut(1.1, 1.0,4100, 4);
 	pImage2Frame->AddEffect(pEffectZoomOut2);
+	EffectRotation* pEffectRotation2 = new EffectRotation(8, 5, 4000, 4);
+	pImage2Frame->AddEffect(pEffectRotation2);
 
 	FrameElement* pRidersTitleOverlayFrame = new FrameElement();
 	pRidersTitleOverlayFrame->SetDuration(2000);
 	e3::Element* pRidersTitleOverlay = new e3::Element();
-	pRidersTitleOverlay->SetBackgroundColor(glm::vec4(7, 19, 45, 255));
+	pRidersTitleOverlay->SetBackgroundColor(glm::vec4(0, 0, 0,255));
 	pRidersTitleOverlay->SetWidth("100%");
 	pRidersTitleOverlay->SetHeight("100%");
 	pRidersTitleOverlayFrame->SetElement(pRidersTitleOverlay, EFrameElementType::Element);
 	pRidersTitleOverlayFrame->SetLayer(1);
 	pRidersTitleOverlayFrame->SetBeginTime(2000);
 	mFrameElementPushMap[2000].push_back(pRidersTitleOverlayFrame);
-	TransitionFadeIn* pFadeInRidersTitle = new TransitionFadeIn(0, 0.7, 0.1);
+	TransitionFadeIn* pFadeInRidersTitle = new TransitionFadeIn(0, 0.3, 0.1);
 	pRidersTitleOverlayFrame->SetBeginTransition(pFadeInRidersTitle);
 	TransitionFadeOut* pFadeOutRidersTitle = new TransitionFadeOut(0.7, 0.0, 0.1);
 	pRidersTitleOverlayFrame->SetEndTransition(pFadeOutRidersTitle);
@@ -63,6 +69,8 @@ Application::Application(const std::string& applicationName, e3::EE3OS os, e3::E
 	FrameElement* pRidersFrame = new FrameElement();
 	pRidersFrame->SetDuration(2000);
 	e3::Text* t = new e3::Text();
+	t->SetPositionType(e3::EPositionType::Absolute);
+	t->SetTop(200);
 	t->SetText("RIDERS");
 	t->SetFontFamily("facon");
 	t->SetFontSize(80);
@@ -88,17 +96,23 @@ Application::Application(const std::string& applicationName, e3::EE3OS os, e3::E
 	pMediaCarCar->SetBeginTime(4000);
 	mFrameElementPushMap[4000].push_back(pMediaCarCar);
 
-	MediaAnimatedText2* pMakeMedia = new MediaAnimatedText2(220, 70);
+	MediaAnimatedText2* pMakeMedia = new MediaAnimatedText2(220, 70, "MERCEDES BENZ");
 	pMakeMedia->SetDuration(2000);
 	pMakeMedia->SetLayer(2);
 	pMakeMedia->SetBeginTime(4000);
 	mFrameElementPushMap[4000].push_back(pMakeMedia);
 
-	MediaAnimatedText2* pModelMedia = new MediaAnimatedText2(220, 110);
+	MediaAnimatedText2* pModelMedia = new MediaAnimatedText2(220, 110, "W204 C250");
 	pModelMedia->SetDuration(2000);
 	pModelMedia->SetLayer(3);
 	pModelMedia->SetBeginTime(4000);
 	mFrameElementPushMap[4000].push_back(pModelMedia);
+
+	MediaStars* pMediaStars = new MediaStars();
+	pMediaStars->SetDuration(2000);
+	pMediaStars->SetLayer(4);
+	pMediaStars->SetBeginTime(4200);
+	mFrameElementPushMap[4200].push_back(pMediaStars);
 }
 
 void Application::AnimateElement(e3::Element* e, e3::Element* next)

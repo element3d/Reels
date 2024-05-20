@@ -48,7 +48,7 @@ void FrameElement::SetEndTransition(Transition* pT)
 void FrameElement::AddEffect(Effect* pE)
 {
     pE->SetFrameElement(this);
-    mEffects[pE->GetBeginTime()] = pE;
+    mEffects[pE->GetBeginTime()].push_back(pE);
 }
 
 void FrameElement::Render() 
@@ -76,10 +76,13 @@ void FrameElement::Render()
     {
         auto it = mEffects.begin();
         long t = it->first;
-        pEffect = it->second;
+        std::vector<Effect*>& effects = it->second;
+       
         if (t <= time) 
         {
-            pEffect->Start();
+            for (auto pEffect : effects)
+                pEffect->Start();
+
             mEffects.erase(it);
         }
     }

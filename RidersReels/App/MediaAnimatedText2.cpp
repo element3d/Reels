@@ -20,7 +20,7 @@ MediaAnimatedText2::MediaAnimatedText2(int x, int y, const std::string& text, e3
 	mTextWrap->SetPaddingRight(5);
 	mTextWrap->SetBackgroundColor(glm::vec4(255));
 	pElement->AddElement(mTextWrap);
-
+	mTextWrap->UpdateGeometry();
 	mText = new e3::Text();
 	mText->SetText(text);
 	mText->SetFontSize(20);

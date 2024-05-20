@@ -12,4 +12,6 @@ public:
 private:
 	bool mFirstFrame = true;
 	bool mEndAnimationIsRunning = false;
+	e3::Element* mOverlay = nullptr;
+	e3::Element* mTextWrap = nullptr;
 };

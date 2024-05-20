@@ -37,6 +37,7 @@ Application::Application(const std::string& applicationName, e3::EE3OS os, e3::E
 	pImage1Frame->AddEffect(pEffectRotation1);
 
 	FrameElement* pImage2Frame = new FrameElement();
+	pImage2Frame->SetDuration(4000);
 	e3::Element* pImage2 = new e3::Element();
 	pImage2->SetBackgroundImageAsset("RidersReels/img2.jpg");
 	pImage2->SetBackgroundImageFit(e3::EBackgroundSize::Cover);
@@ -50,6 +51,21 @@ Application::Application(const std::string& applicationName, e3::EE3OS os, e3::E
 	pImage2Frame->AddEffect(pEffectZoomOut2);
 	EffectRotation* pEffectRotation2 = new EffectRotation(8, 5, 4000, 4);
 	pImage2Frame->AddEffect(pEffectRotation2);
+
+	FrameElement* pImage3Frame = new FrameElement();
+	e3::Element* pImage3 = new e3::Element();
+	pImage3->SetBackgroundImageAsset("RidersReels/img3.jpg");
+	pImage3->SetBackgroundImageFit(e3::EBackgroundSize::Cover);
+	pImage3Frame->SetBeginTime(8000);
+	pImage3Frame->SetLayer(0);
+	pImage3Frame->SetElement(pImage3, EFrameElementType::Image);
+	mFrameElementPushMap[8000].push_back(pImage3Frame);
+	TransitionZoomOut* pTransition3 = new TransitionZoomOut(1.2, 1.1, 0.1);
+	pImage3Frame->SetBeginTransition(pTransition3);
+	EffectZoomOut* pEffectZoomOut3 = new EffectZoomOut(1.1, 1.0, 8100, 4);
+	pImage3Frame->AddEffect(pEffectZoomOut3);
+	EffectRotation* pEffectRotation3 = new EffectRotation(5, 2, 8000, 4);
+	pImage3Frame->AddEffect(pEffectRotation3);
 
 	FrameElement* pRidersTitleOverlayFrame = new FrameElement();
 	pRidersTitleOverlayFrame->SetDuration(2000);
@@ -71,6 +87,7 @@ Application::Application(const std::string& applicationName, e3::EE3OS os, e3::E
 	e3::Text* t = new e3::Text();
 	t->SetPositionType(e3::EPositionType::Absolute);
 	t->SetTop(200);
+	//t->SetRotation(-10, glm::vec3(0, 1, 0), e3::ETransformAlignment::Center);
 	t->SetText("RIDERS");
 	t->SetFontFamily("facon");
 	t->SetFontSize(80);
@@ -85,34 +102,34 @@ Application::Application(const std::string& applicationName, e3::EE3OS os, e3::E
 	pRidersFrame->SetEndTransition(pZoomInRidersTitle);
 
 	MediaAnimatedText* pRidersAmText = new MediaAnimatedText();
-	pRidersAmText->SetDuration(2000);
+	pRidersAmText->SetDuration(1900);
 	pRidersAmText->SetLayer(3);
-	pRidersAmText->SetBeginTime(2330);
-	mFrameElementPushMap[2330].push_back(pRidersAmText);
+	pRidersAmText->SetBeginTime(2100);
+	mFrameElementPushMap[2100].push_back(pRidersAmText);
 
 	MediaCarCard* pMediaCarCar = new MediaCarCard();
-	pMediaCarCar->SetDuration(2000);
+	pMediaCarCar->SetDuration(8000);
 	pMediaCarCar->SetLayer(1);
 	pMediaCarCar->SetBeginTime(4000);
 	mFrameElementPushMap[4000].push_back(pMediaCarCar);
 
 	MediaAnimatedText2* pMakeMedia = new MediaAnimatedText2(220, 70, "MERCEDES BENZ");
-	pMakeMedia->SetDuration(2000);
+	pMakeMedia->SetDuration(8000);
 	pMakeMedia->SetLayer(2);
-	pMakeMedia->SetBeginTime(4000);
-	mFrameElementPushMap[4000].push_back(pMakeMedia);
+	pMakeMedia->SetBeginTime(4100);
+	mFrameElementPushMap[4100].push_back(pMakeMedia);
 
 	MediaAnimatedText2* pModelMedia = new MediaAnimatedText2(220, 110, "W204 C250");
-	pModelMedia->SetDuration(2000);
+	pModelMedia->SetDuration(8000);
 	pModelMedia->SetLayer(3);
-	pModelMedia->SetBeginTime(4000);
-	mFrameElementPushMap[4000].push_back(pModelMedia);
+	pModelMedia->SetBeginTime(4200);
+	mFrameElementPushMap[4200].push_back(pModelMedia);
 
 	MediaStars* pMediaStars = new MediaStars();
-	pMediaStars->SetDuration(2000);
+	pMediaStars->SetDuration(8000);
 	pMediaStars->SetLayer(4);
-	pMediaStars->SetBeginTime(4200);
-	mFrameElementPushMap[4200].push_back(pMediaStars);
+	pMediaStars->SetBeginTime(4500);
+	mFrameElementPushMap[4500].push_back(pMediaStars);
 }
 
 void Application::AnimateElement(e3::Element* e, e3::Element* next)

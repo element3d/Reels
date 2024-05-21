@@ -12,6 +12,7 @@
 #include "MediaAnimatedText2.h"
 #include "MediaStars.h"
 #include "EffectRotation.h"
+#include "MediaCarinfoPanel.h"
 
 Application::Application(const std::string& applicationName, e3::EE3OS os, e3::EE3Target target, e3::Size2i windowSize, e3::Size2i resolution) 
 	: ApplicationBase(applicationName, os, target, windowSize, resolution)
@@ -108,28 +109,34 @@ Application::Application(const std::string& applicationName, e3::EE3OS os, e3::E
 	mFrameElementPushMap[2100].push_back(pRidersAmText);
 
 	MediaCarCard* pMediaCarCar = new MediaCarCard();
-	pMediaCarCar->SetDuration(8000);
-	pMediaCarCar->SetLayer(1);
+	pMediaCarCar->SetDuration(4000);
+	pMediaCarCar->SetLayer(2);
 	pMediaCarCar->SetBeginTime(4000);
 	mFrameElementPushMap[4000].push_back(pMediaCarCar);
 
 	MediaAnimatedText2* pMakeMedia = new MediaAnimatedText2(220, 70, "MERCEDES BENZ");
-	pMakeMedia->SetDuration(8000);
-	pMakeMedia->SetLayer(2);
+	pMakeMedia->SetDuration(3900);
+	pMakeMedia->SetLayer(3);
 	pMakeMedia->SetBeginTime(4100);
 	mFrameElementPushMap[4100].push_back(pMakeMedia);
 
 	MediaAnimatedText2* pModelMedia = new MediaAnimatedText2(220, 110, "W204 C250");
-	pModelMedia->SetDuration(8000);
-	pModelMedia->SetLayer(3);
+	pModelMedia->SetDuration(3800);
+	pModelMedia->SetLayer(4);
 	pModelMedia->SetBeginTime(4200);
 	mFrameElementPushMap[4200].push_back(pModelMedia);
 
 	MediaStars* pMediaStars = new MediaStars();
-	pMediaStars->SetDuration(8000);
-	pMediaStars->SetLayer(4);
+	pMediaStars->SetDuration(3500);
+	pMediaStars->SetLayer(5);
 	pMediaStars->SetBeginTime(4500);
 	mFrameElementPushMap[4500].push_back(pMediaStars);
+
+	MediaCarInfoPanel* pMediaCarInfoPanel = new MediaCarInfoPanel();
+	pMediaCarInfoPanel->SetDuration(3300);
+	pMediaCarInfoPanel->SetLayer(1);
+	pMediaCarInfoPanel->SetBeginTime(4700);
+	mFrameElementPushMap[4700].push_back(pMediaCarInfoPanel);
 }
 
 void Application::AnimateElement(e3::Element* e, e3::Element* next)

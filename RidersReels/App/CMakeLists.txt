@@ -44,7 +44,7 @@ endif()
 add_library(${PROJECT} SHARED ${SRC})
 
 target_include_directories(${PROJECT} PRIVATE private)
-include_directories(D:/Narek/OCV/opencv/build/install/include)
+#include_directories(D:/Narek/OCV/opencv/build/install/include)
 #link_directories(D:/Narek/opencv/build/x64/vc16/lib)
 
 target_link_libraries(${PROJECT}

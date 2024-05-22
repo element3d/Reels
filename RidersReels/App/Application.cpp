@@ -15,6 +15,7 @@
 #include "MediaCarinfoPanel.h"
 #include <opencv2/opencv.hpp>
 #include "MediaEnginePower.h"
+#include "MediaEnding.h"
 
 cv::VideoWriter* video;
 
@@ -62,6 +63,7 @@ Application::Application(const std::string& applicationName, e3::EE3OS os, e3::E
 	pImage2Frame->AddEffect(pEffectRotation2);
 
 	FrameElement* pImage3Frame = new FrameElement();
+	pImage3Frame->SetDuration(4000);
 	e3::Element* pImage3 = new e3::Element();
 	pImage3->SetBackgroundImageAsset("RidersReels/img3.jpg");
 	pImage3->SetBackgroundImageFit(e3::EBackgroundSize::Cover);
@@ -75,6 +77,22 @@ Application::Application(const std::string& applicationName, e3::EE3OS os, e3::E
 	pImage3Frame->AddEffect(pEffectZoomOut3);
 	EffectRotation* pEffectRotation3 = new EffectRotation(5, 2, 8000, 4);
 	pImage3Frame->AddEffect(pEffectRotation3);
+
+	FrameElement* pImage4Frame = new FrameElement();
+	e3::Element* pImage4 = new e3::Element();
+	pImage4->SetBackgroundImageAsset("RidersReels/img4.jpg");
+	pImage4->SetBackgroundImageFit(e3::EBackgroundSize::Cover);
+	pImage4Frame->SetBeginTime(12000);
+	pImage4Frame->SetLayer(0);
+	pImage4Frame->SetElement(pImage4, EFrameElementType::Image);
+	mFrameElementPushMap[12000].push_back(pImage4Frame);
+	TransitionZoomOut* pTransition4 = new TransitionZoomOut(1.2, 1.1, 0.1);
+	pImage4Frame->SetBeginTransition(pTransition4);
+	EffectZoomOut* pEffectZoomOut4 = new EffectZoomOut(1.1, 1.0, 12100, 4);
+	pImage4Frame->AddEffect(pEffectZoomOut4);
+	EffectRotation* pEffectRotation4 = new EffectRotation(5, 2, 12000, 4);
+	pImage4Frame->AddEffect(pEffectRotation4);
+
 
 	FrameElement* pRidersTitleOverlayFrame = new FrameElement();
 	pRidersTitleOverlayFrame->SetDuration(2000);
@@ -96,6 +114,7 @@ Application::Application(const std::string& applicationName, e3::EE3OS os, e3::E
 	e3::Text* t = new e3::Text();
 	t->SetPositionType(e3::EPositionType::Absolute);
 	t->SetTop(200);
+	t->SetMarginLeft(50);
 	//t->SetRotation(-10, glm::vec3(0, 1, 0), e3::ETransformAlignment::Center);
 	t->SetText("RIDERS");
 	t->SetFontFamily("facon");
@@ -151,6 +170,12 @@ Application::Application(const std::string& applicationName, e3::EE3OS os, e3::E
 	pMediaEnignePower->SetLayer(1);
 	pMediaEnignePower->SetBeginTime(8000);
 	mFrameElementPushMap[8000].push_back(pMediaEnignePower);
+
+	MediaEnding* pMediaEnding = new MediaEnding();
+	pMediaEnding->SetDuration(4000);
+	pMediaEnding->SetLayer(1);
+	pMediaEnding->SetBeginTime(12000);
+	mFrameElementPushMap[12000].push_back(pMediaEnding);
 
 	video = new cv::VideoWriter("D://output.avi", cv::VideoWriter::fourcc('M','J','P','G'), 60, cv::Size(GetWindowSize().Width, GetWindowSize().Height));
 

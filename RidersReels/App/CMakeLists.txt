@@ -44,11 +44,19 @@ endif()
 add_library(${PROJECT} SHARED ${SRC})
 
 target_include_directories(${PROJECT} PRIVATE private)
+include_directories(D:/Narek/OCV/opencv/build/install/include)
+#link_directories(D:/Narek/opencv/build/x64/vc16/lib)
 
 target_link_libraries(${PROJECT}
     element3d
 	${ELEMENTARY_LIBS}
-    
+    opencv_core490d
+	opencv_highgui490d
+	opencv_videoio490d
+	opencv_imgproc490d
+	opencv_imgcodecs490d
+
+
 )
 
 if(ANDROID)

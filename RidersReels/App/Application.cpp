@@ -13,6 +13,10 @@
 #include "MediaStars.h"
 #include "EffectRotation.h"
 #include "MediaCarinfoPanel.h"
+#include <opencv2/opencv.hpp>
+#include "MediaEnginePower.h"
+
+cv::VideoWriter* video;
 
 Application::Application(const std::string& applicationName, e3::EE3OS os, e3::EE3Target target, e3::Size2i windowSize, e3::Size2i resolution) 
 	: ApplicationBase(applicationName, os, target, windowSize, resolution)
@@ -32,8 +36,12 @@ Application::Application(const std::string& applicationName, e3::EE3OS os, e3::E
 	TransitionZoomOut* pTransition1 = new TransitionZoomOut(1.2, 1.1, 0.05);
 	pImage1Frame->SetBeginTransition(pTransition1);
 	PushElement(mMain);
-	EffectZoomOut* pEffectZoomOut1 = new EffectZoomOut(1.1, 1.0, 50, 4);
+	EffectZoomOut* pEffectZoomOut1 = new EffectZoomOut(1.12, 1.08, 50, 2);
 	pImage1Frame->AddEffect(pEffectZoomOut1);
+	EffectZoomOut* pEffectZoomOut12 = new EffectZoomOut(1.08, 1.04, 2000, 0.05);
+	pImage1Frame->AddEffect(pEffectZoomOut12);
+	EffectZoomOut* pEffectZoomOut13 = new EffectZoomOut(1.04, 1.0, 2100, 2);
+	pImage1Frame->AddEffect(pEffectZoomOut13);
 	EffectRotation* pEffectRotation1 = new EffectRotation(8, 5, 0, 4);
 	pImage1Frame->AddEffect(pEffectRotation1);
 
@@ -137,6 +145,15 @@ Application::Application(const std::string& applicationName, e3::EE3OS os, e3::E
 	pMediaCarInfoPanel->SetLayer(1);
 	pMediaCarInfoPanel->SetBeginTime(4700);
 	mFrameElementPushMap[4700].push_back(pMediaCarInfoPanel);
+
+	MediaEnignePower* pMediaEnignePower = new MediaEnignePower();
+	pMediaEnignePower->SetDuration(4000);
+	pMediaEnignePower->SetLayer(1);
+	pMediaEnignePower->SetBeginTime(8000);
+	mFrameElementPushMap[8000].push_back(pMediaEnignePower);
+
+	video = new cv::VideoWriter("D://output.avi", cv::VideoWriter::fourcc('M','J','P','G'), 60, cv::Size(GetWindowSize().Width, GetWindowSize().Height));
+
 }
 
 void Application::AnimateElement(e3::Element* e, e3::Element* next)
@@ -167,8 +184,16 @@ void Application::OnResize(float width, float height)
 
 }
 
+    // Set the desired frame rate for the video
+    const int videoFrameRate = 60;
+    const double frameDuration = 1.0 / videoFrameRate;
+    auto nextFrameTime = std::chrono::steady_clock::now() + std::chrono::duration<double>(frameDuration);
+	    auto lastFrameTime = std::chrono::steady_clock::now();
+
 void Application::Render()
 {
+        auto start = std::chrono::steady_clock::now();
+
 	if (mFirstFrame) 
 	{
 		mFirstFrame = false;
@@ -233,4 +258,47 @@ void Application::Render()
 	}
 
 	e3::Application::Render();
+
+	return;
+	e3::Image* pI = RenderToImage();
+	void* pData = pI->GetData();
+	int w = pI->GetWidth();
+	int h = pI->GetHeight();
+	int c = pI->GetNumChannels();
+
+	 cv::Mat img;
+    if (c == 3) {
+        img = cv::Mat(h, w, CV_8UC3, pData);
+    } else if (c == 4) {
+        img = cv::Mat(h, w, CV_8UC4, pData);
+    } else {
+        // Handle other cases if necessary
+        std::cerr << "Unsupported number of channels: " << c << std::endl;
+        return;
+    }
+
+    // Convert from BGRA to BGR if necessary
+  //  if (c == 4) {
+        cv::cvtColor(img, img, cv::COLOR_BGR2RGB);
+    //}
+	//cv::imwrite("a.jpg", img);
+	      //  video->write(img);
+
+     auto renderEnd = std::chrono::steady_clock::now();
+
+        // Check if enough time has passed to write the next frame
+        auto now = std::chrono::steady_clock::now();
+        std::chrono::duration<double> elapsedTime = now - lastFrameTime;
+
+        if (elapsedTime.count() >= frameDuration) {
+            // Write the frame into the video file
+         //   video->write(img);
+            lastFrameTime = now; // Update last frame time
+        }
+
+        auto writeEnd = std::chrono::steady_clock::now();
+
+        // Print profiling information
+        std::chrono::duration<double> renderTime = renderEnd - start;
+        std::chrono::duration<double> writeTime = writeEnd - renderEnd;
 }

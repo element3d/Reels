@@ -14,6 +14,9 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_RELEASE ${CMAKE_SOURCE_DIR}/bin)
 set(LIBS_DIR $ENV{ELEMENT3D_DIR}/libs/lib)
 set(INCLUDES_DIR $ENV{ELEMENT3D_DIR}/libs/include)
 
+set(LOCAL_LIBS_DIR ${CMAKE_SOURCE_DIR}/libs/lib)
+set(LOCAL_INCLUDES_DIR ${CMAKE_SOURCE_DIR}/libs/include)
+
 include_directories(
 	${CMAKE_SOURCE_DIR}
 	${INCLUDES_DIR}
@@ -31,6 +34,7 @@ elseif(EMSCRIPTEN)
 elseif(WIN32)
     add_definitions(-D__E3_OS_WINDOWS__)
     link_directories(${LIBS_DIR}/Win32)
+	link_directories(${LOCAL_LIBS_DIR}/Win32)
 elseif(UNIX)
     add_definitions(-D__E3_OS_LINUX__)
     link_directories(${LIBS_DIR}/Linux)

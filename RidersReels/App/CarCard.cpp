@@ -1,11 +1,14 @@
 #include "CarCard.h"
 #include <e3/Text.h>
 
+#define CARD_SPEED 180
+
 CarCard::CarCard(e3::Element* pParent)
 	: e3::Element(pParent)
 {
-	SetWidth(300);
-	SetHeight(400);
+	SetWidth(230);
+	SetHeight(280);
+	SetMarginLeft(10);
 	SetBackgroundColor(glm::vec4(255));
 
 	mImage1 = new e3::Element();
@@ -66,9 +69,9 @@ CarCard::CarCard(e3::Element* pParent)
 
 	e3::Element* pYearCont = new e3::Element();
 	pYearCont->SetBackgroundColor(glm::vec4(255, 0,0, 255));
-	pYearCont->SetHeight(30);
-	pYearCont->SetWidth(80);
-	pYearCont->SetPaddingLeft(10);
+	pYearCont->SetHeight(26);
+	pYearCont->SetWidth(60);
+	pYearCont->SetPaddingLeft(5);
 	pYearCont->SetPositionType(e3::EPositionType::Absolute);
 	pYearCont->SetTop(0);
 	pYearCont->SetRight(0);
@@ -83,7 +86,9 @@ CarCard::CarCard(e3::Element* pParent)
 
 	e3::Element* pYearContInner = new e3::Element();
 	pYearContInner->SetBackgroundColor(glm::vec4(255));
-	pYearContInner->SetHeight(30);
+	pYearContInner->SetAlignItemsHor(e3::EAlignment::End);
+	pYearContInner->SetHeight(26);
+	pYearContInner->SetPaddingRight(5);
 	pYearContInner->SetWidth("100%");
 	pYearContInner->SetPositionType(e3::EPositionType::Absolute);
 	pYearContInner->SetTop(0);
@@ -99,7 +104,8 @@ CarCard::CarCard(e3::Element* pParent)
 
 	e3::Text* pYear = new e3::Text();
 	pYear->SetText("2012");
-	pYear->SetFontSize(16);
+	pYear->SetFontSize(14);
+	pYear->SetFontFamily("open sans");
 	pYear->SetFontStyle(e3::EFontStyle::Bold);
 	pYear->SetTextColor(glm::vec4(0, 0, 0, 255));
 	pYearContInner->AddElement(pYear);
@@ -107,7 +113,7 @@ CarCard::CarCard(e3::Element* pParent)
 	// Model
 	e3::Element* pModelCont = new e3::Element();
 	pModelCont->SetBackgroundColor(glm::vec4(255));
-	pModelCont->SetHeight(30);
+	pModelCont->SetHeight(26);
 	//pModelCont->SetWidth(80);
 	pModelCont->SetPaddingLeft(10);
 	pModelCont->SetPaddingRight(40);
@@ -125,7 +131,8 @@ CarCard::CarCard(e3::Element* pParent)
 
 	e3::Text* pModel = new e3::Text();
 	pModel->SetText("W204 C250");
-	pModel->SetFontSize(16);
+	pModel->SetFontSize(14);
+	pModel->SetFontFamily("open sans");
 	pModel->SetFontStyle(e3::EFontStyle::Bold);
 	pModel->SetTextColor(glm::vec4(0, 0, 0, 255));
 	pModelCont->AddElement(pModel);
@@ -137,13 +144,14 @@ CarCard::CarCard(e3::Element* pParent)
 	pMakeCont->SetPaddingLeft(10);
 	pMakeCont->SetPaddingRight(10);
 	pMakeCont->SetPositionType(e3::EPositionType::Absolute);
-	pMakeCont->SetBottom(30);
+	pMakeCont->SetBottom(26);
 	pMakeCont->SetLeft(0);
 	mCard->AddElement(pMakeCont);
 
 	e3::Text* pMake = new e3::Text();
 	pMake->SetText("MERECEDES BENZ");
-	pMake->SetFontSize(13);
+	pMake->SetFontSize(14);
+	pMake->SetFontFamily("open sans");
 	pMake->SetFontStyle(e3::EFontStyle::Bold);
 	pMake->SetTextColor(glm::vec4(255));
 	pMakeCont->AddElement(pMake);
@@ -156,6 +164,7 @@ void CarCard::AnimateImage4()
 		pA->Start(.1, 1.4, 1, [this](float v){
 			mCard->SetScale(glm::vec3(v, v, 1), e3::ETransformAlignment::Center);
 			mCard->SetRotation(-(v - 1) * 12, glm::vec3(0, 0, 1), e3::ETransformAlignment::BottomRight);
+			mCard->SetTranslation(glm::vec3(-(v - 1) * CARD_SPEED, 0, 0));
 		}, [](){
 			
 			
@@ -169,6 +178,8 @@ void CarCard::AnimateImage3()
 		pA->Start(.1, 1.4, 1, [this](float v){
 			mImage3->SetScale(glm::vec3(v, v, 1), e3::ETransformAlignment::Center);
 			mImage3->SetRotation(-(v - 1) * 12, glm::vec3(0, 0, 1), e3::ETransformAlignment::BottomRight);
+			mImage3->SetTranslation(glm::vec3(-(v - 1) * CARD_SPEED, 0, 0));
+
 		}, [this](){
 			AnimateImage4();
 			
@@ -182,6 +193,8 @@ void CarCard::AnimateImage2()
 		pA->Start(.1, 1.4, 1, [this](float v){
 			mImage2->SetScale(glm::vec3(v, v, 1), e3::ETransformAlignment::Center);
 			mImage2->SetRotation(-(v - 1) * 12, glm::vec3(0, 0, 1), e3::ETransformAlignment::BottomRight);
+			mImage2->SetTranslation(glm::vec3(-(v - 1) * CARD_SPEED, 0, 0));
+
 		}, [this](){
 			AnimateImage3();
 			
@@ -197,6 +210,8 @@ void CarCard::Render()
 		pA->Start(.1, 1.4, 1, [this](float v){
 			mImage1->SetScale(glm::vec3(v, v, 1), e3::ETransformAlignment::Center);
 			mImage1->SetRotation(-(v - 1) * 12, glm::vec3(0, 0, 1), e3::ETransformAlignment::BottomRight);
+			mImage1->SetTranslation(glm::vec3(-(v - 1) * CARD_SPEED, 0, 0));
+
 		}, [this](){
 			AnimateImage2();
 		});

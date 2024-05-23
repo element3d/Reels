@@ -69,7 +69,7 @@ MediaEnignePower::MediaEnignePower(e3::Element* pParent)
 void MediaEnignePower::AnimateValueText()
 {
     e3::Animation* pA = new e3::Animation(this);
-    pA->Start(0.4, 220, 241.0, [this](float v){
+    pA->Start(0.4, 230, 241.0, [this](float v){
         mValue->SetText(std::to_string(int(v)));
 
     }, [](){

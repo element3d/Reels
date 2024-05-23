@@ -7,6 +7,7 @@ FrameElement::FrameElement(Element* pParent)
 {
     SetWidth("100%");
     SetHeight("100%");
+
     /*mImageElement = new e3::Element();
     mImageElement->SetWidth("100%");
     mImageElement->SetHeight("100%");

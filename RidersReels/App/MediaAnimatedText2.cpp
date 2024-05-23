@@ -23,8 +23,9 @@ MediaAnimatedText2::MediaAnimatedText2(int x, int y, const std::string& text, e3
 	mTextWrap->UpdateGeometry();
 	mText = new e3::Text();
 	mText->SetText(text);
+	mText->SetFontFamily("open sans");
 	mText->SetFontSize(20);
-	mText->SetFontStyle(e3::EFontStyle::Bold);
+	mText->SetFontStyle(e3::EFontStyle::SemiBold);
 	mText->SetTextColor(glm::vec4(0, 0, 0, 255));
 	mTextWrap->AddElement(mText);
 }

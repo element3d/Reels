@@ -23,6 +23,10 @@ Application::Application(const std::string& applicationName, e3::EE3OS os, e3::E
 	: ApplicationBase(applicationName, os, target, windowSize, resolution)
 {
 	e3::Typography::AddFont("facon", e3::EFontStyle::Normal, "RidersReels/fonts/facon.ttf");
+	e3::Typography::AddFont("open sans", e3::EFontStyle::Normal, "RidersReels/fonts/OpenSans-Regular.ttf");
+	e3::Typography::AddFont("open sans", e3::EFontStyle::Bold, "RidersReels/fonts/OpenSans-Bold.ttf");
+	e3::Typography::AddFont("open sans", e3::EFontStyle::SemiBold, "RidersReels/fonts/OpenSans-ExtraBold.ttf");
+
 	mMain = new e3::Element();
 
 	FrameElement* pImage1Frame = new FrameElement();
@@ -283,8 +287,13 @@ void Application::Render()
 	}
 
 	e3::Application::Render();
-
 	return;
+	if (time > 16000)  {
+
+		video->release();
+		return;
+	}
+//	return;
 	e3::Image* pI = RenderToImage();
 	void* pData = pI->GetData();
 	int w = pI->GetWidth();
@@ -317,7 +326,7 @@ void Application::Render()
 
         if (elapsedTime.count() >= frameDuration) {
             // Write the frame into the video file
-         //   video->write(img);
+           video->write(img);
             lastFrameTime = now; // Update last frame time
         }
 

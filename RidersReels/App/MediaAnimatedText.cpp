@@ -33,8 +33,9 @@ MediaAnimatedText::MediaAnimatedText(e3::Element* pParent)
 	e3::Text* pWWW = new e3::Text();
 	pWWW->SetText("WWW.RIDERS.AM");
 	pWWW->SetMarginLeft(10);
+	pWWW->SetFontFamily("open sans");
 	pWWW->SetFontSize(24);
-	pWWW->SetFontStyle(e3::EFontStyle::Bold);
+	pWWW->SetFontStyle(e3::EFontStyle::SemiBold);
 	pWWW->SetTextColor(glm::vec4(255));
 	mTextWrap->AddElement(pWWW);
 	mTextWrap->SetOpacity(0);

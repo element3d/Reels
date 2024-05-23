@@ -28,6 +28,7 @@ CarCard::CarCard(e3::Element* pParent)
 	mImage2->SetLeft(-5);
 	mImage2->SetBackgroundImageFit(e3::EBackgroundSize::Cover);
 	AddElement(mImage2);
+	mImage2->SetVisibility(e3::EVisibility::Gone);
 
 	e3::ShadowParams sh;
 	sh.BlurSize = 10;
@@ -48,6 +49,7 @@ CarCard::CarCard(e3::Element* pParent)
 	mImage3->SetLeft(-10);
 	mImage3->SetBackgroundImageFit(e3::EBackgroundSize::Cover);
 	AddElement(mImage3);
+	mImage3->SetVisibility(e3::EVisibility::Gone);
 
 	mCard = new e3::Element();
 	mCard->SetWidth("100%");
@@ -60,6 +62,7 @@ CarCard::CarCard(e3::Element* pParent)
 	mCard->SetLeft(-15);
 	mCard->SetBackgroundImageFit(e3::EBackgroundSize::Cover);
 	AddElement(mCard);
+	mCard->SetVisibility(e3::EVisibility::Gone);
 
 	e3::Element* pYearCont = new e3::Element();
 	pYearCont->SetBackgroundColor(glm::vec4(255, 0,0, 255));
@@ -144,4 +147,61 @@ CarCard::CarCard(e3::Element* pParent)
 	pMake->SetFontStyle(e3::EFontStyle::Bold);
 	pMake->SetTextColor(glm::vec4(255));
 	pMakeCont->AddElement(pMake);
+}
+
+void CarCard::AnimateImage4()
+{
+	mCard->SetVisibility(e3::EVisibility::Visible);
+	e3::Animation* pA = new e3::Animation(this);
+		pA->Start(.1, 1.4, 1, [this](float v){
+			mCard->SetScale(glm::vec3(v, v, 1), e3::ETransformAlignment::Center);
+			mCard->SetRotation(-(v - 1) * 12, glm::vec3(0, 0, 1), e3::ETransformAlignment::BottomRight);
+		}, [](){
+			
+			
+		});
+}
+
+void CarCard::AnimateImage3()
+{
+	mImage3->SetVisibility(e3::EVisibility::Visible);
+	e3::Animation* pA = new e3::Animation(this);
+		pA->Start(.1, 1.4, 1, [this](float v){
+			mImage3->SetScale(glm::vec3(v, v, 1), e3::ETransformAlignment::Center);
+			mImage3->SetRotation(-(v - 1) * 12, glm::vec3(0, 0, 1), e3::ETransformAlignment::BottomRight);
+		}, [this](){
+			AnimateImage4();
+			
+		});
+}
+
+void CarCard::AnimateImage2()
+{
+	mImage2->SetVisibility(e3::EVisibility::Visible);
+	e3::Animation* pA = new e3::Animation(this);
+		pA->Start(.1, 1.4, 1, [this](float v){
+			mImage2->SetScale(glm::vec3(v, v, 1), e3::ETransformAlignment::Center);
+			mImage2->SetRotation(-(v - 1) * 12, glm::vec3(0, 0, 1), e3::ETransformAlignment::BottomRight);
+		}, [this](){
+			AnimateImage3();
+			
+		});
+}
+
+
+void CarCard::Render()
+{
+	if (mFirstFrame)
+	{
+		e3::Animation* pA = new e3::Animation(this);
+		pA->Start(.1, 1.4, 1, [this](float v){
+			mImage1->SetScale(glm::vec3(v, v, 1), e3::ETransformAlignment::Center);
+			mImage1->SetRotation(-(v - 1) * 12, glm::vec3(0, 0, 1), e3::ETransformAlignment::BottomRight);
+		}, [this](){
+			AnimateImage2();
+		});
+
+		mFirstFrame = false;
+	}
+	e3::Element::Render();
 }

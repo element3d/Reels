@@ -24,6 +24,7 @@ CarInfoItem::CarInfoItem(const std::string& title, const std::string& value, e3:
 	mTitle->SetTextColor(glm::vec4(255));
 	mTitle->SetFontSize(20);
 	mTitle->SetMarginLeft(10);
+	mTitle->SetFontFamily("open sans");
 	mTitle->SetFontStyle(e3::EFontStyle::Bold);
 	pLeft->AddElement(mTitle);
 	AddElement(pLeft);
@@ -33,6 +34,7 @@ CarInfoItem::CarInfoItem(const std::string& title, const std::string& value, e3:
 	mValue->SetTextColor(glm::vec4(255));
 	mValue->SetFontSize(20);
 	mValue->SetMarginLeft(10);
+	mValue->SetFontFamily("open sans");
 	mValue->SetFontStyle(e3::EFontStyle::Bold);
 	AddElement(mValue);
 }

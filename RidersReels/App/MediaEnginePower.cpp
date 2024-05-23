@@ -11,50 +11,107 @@ MediaEnignePower::MediaEnignePower(e3::Element* pParent)
     SetElement(pElement, EFrameElementType::Element);
 
     mIcon = new e3::FontIcon();
-    mIcon->SetWidth(40);
-    mIcon->SetHeight(40);
+    mIcon->SetWidth(50);
+    mIcon->SetHeight(50);
     mIcon->SetFont("RidersReels/icons.ttf");
     mIcon->SetColor(glm::vec4(255));
     mIcon->SetCharcode("E902");
     pElement->AddElement(mIcon);
 
     mTitleWrap = new e3::Element();
-    mTitleWrap->SetMarginLeft(10);
+    mTitleWrap->SetWidth(0);
+    mTitleWrap->SetAlignItemsHor(e3::EAlignment::Start);
+    mTitleWrap->SetOverflow(e3::EOverflow::Hidden);
+    mTitleWrap->SetPaddingLeft(10);
     pElement->AddElement(mTitleWrap);
     mTitle = new e3::Text();
     mTitle->SetText("ENGINE POWER");
     mTitle->SetFontSize(30);
+    mTitle->SetFontFamily("open sans");
+    mTitle->SetFontStyle(e3::EFontStyle::SemiBold);
     mTitle->SetTextColor(glm::vec4(255));
     mTitleWrap->AddElement(mTitle);
 
-    e3::Element* pValueWrap = new e3::Element();
-    pValueWrap->SetMarginLeft(50);
-    pElement->AddElement(pValueWrap);
+    mValueWrap = new e3::Element();
+    mValueWrap->SetVisibility(e3::EVisibility::Hidden);
+    mValueWrap->SetBackgroundColor(glm::vec4(255));
+   // mValueWrap->SetWidth(100);
+    mValueWrap->SetHeight(40);
+   // mValueWrap->SetWidth(0);
+    mValueWrap->SetOverflow(e3::EOverflow::Hidden);
+   // pValueWrap->SetMarginLeft(50);
+    pElement->AddElement(mValueWrap);
 
-    e3::Text* pValue = new e3::Text();
-    pValue->SetText("235");
-    pValue->SetFontSize(30);
-    pValue->SetTextColor(glm::vec4(255));
-    pValueWrap->AddElement(pValue);
+    mValue = new e3::Text();
+    mValue->SetWidth(80);
+    mValue->SetText("150");
+    mValue->SetFontSize(30);
+    mValue->SetTextColor(glm::vec4(0, 0, 0, 255));
+    mValue->SetFontFamily("open sans");
+    mValue->SetFontStyle(e3::EFontStyle::SemiBold);
+    mValueWrap->AddElement(mValue);
 
     e3::Element* pHpWrap = new e3::Element();
-    pHpWrap->SetWidth(30);
-    pHpWrap->SetHeight(30);
+    pHpWrap->SetWidth(40);
+    pHpWrap->SetHeight(40);
     pHpWrap->SetBackgroundColor(glm::vec4(0, 0, 0, 255));
-    pValueWrap->AddElement(pHpWrap);
+    mValueWrap->AddElement(pHpWrap);
 
     e3::Text* pHp = new e3::Text();
     pHp->SetText("HP");
     pHp->SetFontSize(20);
     pHp->SetTextColor(glm::vec4(255));
+    pHp->SetFontFamily("open sans");
+    pHp->SetFontStyle(e3::EFontStyle::SemiBold);
     pHpWrap->AddElement(pHp);
+}
+
+void MediaEnignePower::AnimateValueText()
+{
+    e3::Animation* pA = new e3::Animation(this);
+    pA->Start(0.4, 220, 241.0, [this](float v){
+        mValue->SetText(std::to_string(int(v)));
+
+    }, [](){
+            
+    });
+}
+
+void MediaEnignePower::AnimateZoomOutValue()
+{
+    mValueWrap->SetVisibility(e3::EVisibility::Visible);
+    e3::Animation* pA = new e3::Animation(this);
+    pA->Start(0.2, 1.5, 1.0, [this](float v){
+        mValueWrap->SetScale(glm::vec3(v, v, 1), e3::ETransformAlignment::Center);
+
+    }, [this](){
+        AnimateValueText();
+    });
+}
+
+void MediaEnignePower::AnimateTitle()
+{
+    e3::Animation* pA = new e3::Animation(this);
+    pA->Start(0.4, 0.0, 260.0, [this](float v){
+        mTitleWrap->SetWidth(v);
+
+    }, [this](){
+            AnimateZoomOutValue();
+    });
 }
 
 void MediaEnignePower::Render()
 {
     if (mFirstFrame) 
     {
-    
+        e3::Animation* pA = new e3::Animation(this);
+        pA->Start(0.1, 4.0, 1.0, [this](float v){
+            mIcon->SetScale(glm::vec3(v, v, 1), e3::ETransformAlignment::Center);        
+            mElement->SetBackgroundColor(glm::vec4(0, 0, 0, (1-v/4) * 120));
+
+        }, [this](){
+            AnimateTitle();
+        });
         mFirstFrame = false;
     }
 

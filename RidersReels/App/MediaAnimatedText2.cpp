@@ -30,6 +30,16 @@ MediaAnimatedText2::MediaAnimatedText2(int x, int y, const std::string& text, e3
 	mTextWrap->AddElement(mText);
 }
 
+void MediaAnimatedText2::Hide() 
+{
+	e3::Animation* pA = new e3::Animation(this);
+	pA->Start(0.2, [this](float v) {
+		mTextWrap->SetWidth((mText->GetGeometry().width ) * (1 - v));
+		}, [this]() {
+			mTextWrap->SetOpacity(0);
+		});
+}
+
 void MediaAnimatedText2::Render()
 {
 	if (mFirstFrame) 

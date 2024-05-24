@@ -36,6 +36,18 @@ MediaCarCard::MediaCarCard(e3::Element* pParent)
 
 }
 
+void MediaCarCard::Hide() 
+{
+	mFirstFrame = false;
+	e3::Animation* pA = new e3::Animation(this);
+	pA->Start(.4, [this](float v) {
+		mCardWrap->SetHeight(150 * (1 - v));
+		mCardOverlay->SetOpacity(v);
+		}, []() {
+
+	});
+}
+
 void MediaCarCard::Render()
 {
 	if (mFirstFrame) 

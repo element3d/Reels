@@ -7,7 +7,7 @@ class MediaCarCard : public FrameElement
 public:
 	MediaCarCard(Element* pParent = nullptr);
 	virtual void Render() override;
-
+	void Hide();
 private:
 	bool mFirstFrame = true;
 	e3::Element* mCardWrap = nullptr;

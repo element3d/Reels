@@ -4,6 +4,8 @@
 #include "private/ApplicationBase.h"
 #include "FrameElement.h"
 #include <map>
+#include "MediaCarCard.h"
+#include "MediaAnimatedText2.h"
 
 class Application : public ApplicationBase
 {
@@ -22,6 +24,13 @@ public:
     std::map<long, std::vector<FrameElement*>> mFrameElementPushMap;
     std::map<long, std::vector<FrameElement*>> mFrameElementPopMap;
     bool mFirstFrame = true;
+    MediaCarCard* mMediaCarCard = nullptr;
+    bool mMediaCarCardHidden = false;
+    MediaAnimatedText2* mMakeMedia = nullptr;
+    bool mMakeMedialHidden = false;
+    MediaAnimatedText2* mModelMedia = nullptr;
+    bool mModelMedialHidden = false;
+    
 };
 
 #endif // __Application_H__

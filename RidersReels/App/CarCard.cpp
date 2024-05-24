@@ -6,8 +6,8 @@
 CarCard::CarCard(e3::Element* pParent)
 	: e3::Element(pParent)
 {
-	SetWidth(230);
-	SetHeight(280);
+	SetWidth(280);
+	SetHeight(340);
 	SetMarginLeft(10);
 	SetBackgroundColor(glm::vec4(255));
 

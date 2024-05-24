@@ -8,6 +8,7 @@ class MediaAnimatedText2 : public FrameElement
 public:
 	MediaAnimatedText2(int x, int y, const std::string& text, e3::Element* pParent = nullptr);
 	virtual void Render() override;
+	void Hide();
 
 private:
 	e3::Element* mTextWrap = nullptr;

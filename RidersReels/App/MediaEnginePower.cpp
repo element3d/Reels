@@ -79,7 +79,7 @@ void MediaEnignePower::AnimateEnding()
 {
     mEndOverlay->SetOpacity(1);
     e3::Animation* pA = new e3::Animation(this);
-    pA->Start(0.1, 0, 1, [this](float v){
+    pA->Start(0.2, 0, 1, [this](float v){
         mEndOverlay->SetScale(glm::vec3(v, 1, 1), e3::ETransformAlignment::Left);
 
     }, [this](){
@@ -87,7 +87,7 @@ void MediaEnignePower::AnimateEnding()
         mTitleWrap->SetOpacity(0);
         mValueWrap->SetOpacity(0);
         e3::Animation* pA = new e3::Animation(this);
-        pA->Start(0.1, 1, 0, [this](float v){
+        pA->Start(0.2, 1, 0, [this](float v){
             mEndOverlay->SetScale(glm::vec3(v, 1, 1), e3::ETransformAlignment::Right);
             mElement->SetBackgroundColor(glm::vec4(0, 0, 0, 100 * (v)));
         }, [](){
@@ -146,7 +146,7 @@ void MediaEnignePower::Render()
     }
 
     double time = Timeline::Get()->GetTime();
-    if (!mEndingAnimated && time - mBeginTime >= 2000)
+    if (!mEndingAnimated && time - mBeginTime >= 1800)
     {
         mEndingAnimated = true;
         AnimateEnding();

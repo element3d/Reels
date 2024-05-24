@@ -17,6 +17,7 @@
 #include "MediaEnginePower.h"
 #include "MediaEnding.h"
 #include "MediaDwinLogo.h"
+#include "MediaEngine.h"
 
 cv::VideoWriter* video;
 
@@ -68,7 +69,7 @@ Application::Application(const std::string& applicationName, e3::EE3OS os, e3::E
 	pImage2Frame->AddEffect(pEffectRotation2);
 
 	FrameElement* pImage3Frame = new FrameElement();
-	pImage3Frame->SetDuration(4000);
+	pImage3Frame->SetDuration(3500);
 	e3::Element* pImage3 = new e3::Element();
 	pImage3->SetBackgroundImageAsset("RidersReels/img3.jpg");
 	pImage3->SetBackgroundImageFit(e3::EBackgroundSize::Cover);
@@ -84,35 +85,35 @@ Application::Application(const std::string& applicationName, e3::EE3OS os, e3::E
 	pImage3Frame->AddEffect(pEffectRotation3);
 
 	FrameElement* pImage4Frame = new FrameElement();
-	pImage4Frame->SetDuration(4000);
+	pImage4Frame->SetDuration(3300);
 	e3::Element* pImage4 = new e3::Element();
 	pImage4->SetBackgroundImageAsset("RidersReels/img4.jpg");
 	pImage4->SetBackgroundImageFit(e3::EBackgroundSize::Cover);
-	pImage4Frame->SetBeginTime(12000);
+	pImage4Frame->SetBeginTime(11500);
 	pImage4Frame->SetLayer(0);
 	pImage4Frame->SetElement(pImage4, EFrameElementType::Image);
-	mFrameElementPushMap[12000].push_back(pImage4Frame);
+	mFrameElementPushMap[11500].push_back(pImage4Frame);
 	TransitionZoomOut* pTransition4 = new TransitionZoomOut(1.2, 1.1, 0.1);
 	pImage4Frame->SetBeginTransition(pTransition4);
-	EffectZoomOut* pEffectZoomOut4 = new EffectZoomOut(1.1, 1.0, 12100, 4);
+	EffectZoomOut* pEffectZoomOut4 = new EffectZoomOut(1.1, 1.0, 11600, 4);
 	pImage4Frame->AddEffect(pEffectZoomOut4);
-	EffectRotation* pEffectRotation4 = new EffectRotation(5, 2, 12000, 4);
+	EffectRotation* pEffectRotation4 = new EffectRotation(5, 2, 11500, 4);
 	pImage4Frame->AddEffect(pEffectRotation4);
 
 	FrameElement* pImage5Frame = new FrameElement();
 	e3::Element* pImage5 = new e3::Element();
 	pImage5->SetBackgroundImageAsset("RidersReels/img5.jpg");
 	pImage5->SetBackgroundImageFit(e3::EBackgroundSize::Cover);
-	pImage5Frame->SetBeginTime(16000);
+	pImage5Frame->SetBeginTime(14800);
 	pImage5Frame->SetLayer(0);
 	pImage5Frame->SetElement(pImage5, EFrameElementType::Image);
-	mFrameElementPushMap[16000].push_back(pImage5Frame);
+	mFrameElementPushMap[14800].push_back(pImage5Frame);
 	TransitionZoomOut* pTransition5 = new TransitionZoomOut(1.2, 1.1, 0.1);
 	pImage5Frame->SetBeginTransition(pTransition5);
 	EffectZoomOut* pEffectZoomOut5 = new EffectZoomOut(1.1, 1.0, 16100, 4);
 	pImage5Frame->AddEffect(pEffectZoomOut5);
-	EffectRotation* pEffectRotation5 = new EffectRotation(5, 2, 16000, 4);
-	pImage5Frame->AddEffect(pEffectRotation5);
+	/*EffectRotation* pEffectRotation5 = new EffectRotation(5, 2, 16000, 4);
+	pImage5Frame->AddEffect(pEffectRotation5);*/
 
 	FrameElement* pRidersTitleOverlayFrame = new FrameElement();
 	pRidersTitleOverlayFrame->SetDuration(2000);
@@ -161,23 +162,23 @@ Application::Application(const std::string& applicationName, e3::EE3OS os, e3::E
 	pMediaDwinLogo->SetBeginTime(2300);
 	mFrameElementPushMap[2300].push_back(pMediaDwinLogo);
 
-	MediaCarCard* pMediaCarCar = new MediaCarCard();
-	pMediaCarCar->SetDuration(4000);
-	pMediaCarCar->SetLayer(2);
-	pMediaCarCar->SetBeginTime(4000);
-	mFrameElementPushMap[4000].push_back(pMediaCarCar);
+	mMediaCarCard = new MediaCarCard();
+	mMediaCarCard->SetDuration(4000);
+	mMediaCarCard->SetLayer(2);
+	mMediaCarCard->SetBeginTime(4000);
+	mFrameElementPushMap[4000].push_back(mMediaCarCard);
 
-	MediaAnimatedText2* pMakeMedia = new MediaAnimatedText2(220, 70, "MERCEDES BENZ");
-	pMakeMedia->SetDuration(3900);
-	pMakeMedia->SetLayer(3);
-	pMakeMedia->SetBeginTime(4100);
-	mFrameElementPushMap[4100].push_back(pMakeMedia);
+	mMakeMedia = new MediaAnimatedText2(220, 70, "MERCEDES BENZ");
+	mMakeMedia->SetDuration(3900);
+	mMakeMedia->SetLayer(3);
+	mMakeMedia->SetBeginTime(4100);
+	mFrameElementPushMap[4100].push_back(mMakeMedia);
 
-	MediaAnimatedText2* pModelMedia = new MediaAnimatedText2(220, 110, "W204 C250");
-	pModelMedia->SetDuration(3800);
-	pModelMedia->SetLayer(4);
-	pModelMedia->SetBeginTime(4200);
-	mFrameElementPushMap[4200].push_back(pModelMedia);
+	mModelMedia = new MediaAnimatedText2(220, 110, "W204 C250");
+	mModelMedia->SetDuration(3800);
+	mModelMedia->SetLayer(4);
+	mModelMedia->SetBeginTime(4200);
+	mFrameElementPushMap[4200].push_back(mModelMedia);
 
 	MediaStars* pMediaStars = new MediaStars();
 	pMediaStars->SetDuration(3500);
@@ -191,17 +192,23 @@ Application::Application(const std::string& applicationName, e3::EE3OS os, e3::E
 	pMediaCarInfoPanel->SetBeginTime(4700);
 	mFrameElementPushMap[4700].push_back(pMediaCarInfoPanel);
 
+	MediaEngine* pMediaEngine = new MediaEngine();
+	pMediaEngine->SetDuration(3000);
+	pMediaEngine->SetLayer(1);
+	pMediaEngine->SetBeginTime(8000);
+	mFrameElementPushMap[8000].push_back(pMediaEngine);
+
 	MediaEnignePower* pMediaEnignePower = new MediaEnignePower();
-	pMediaEnignePower->SetDuration(4000);
+	pMediaEnignePower->SetDuration(3000);
 	pMediaEnignePower->SetLayer(1);
-	pMediaEnignePower->SetBeginTime(8000);
-	mFrameElementPushMap[8000].push_back(pMediaEnignePower);
+	pMediaEnignePower->SetBeginTime(11000);
+	mFrameElementPushMap[11000].push_back(pMediaEnignePower);
 
 	MediaEnding* pMediaEnding = new MediaEnding();
 	pMediaEnding->SetDuration(4000);
 	pMediaEnding->SetLayer(1);
-	pMediaEnding->SetBeginTime(12000);
-	mFrameElementPushMap[12000].push_back(pMediaEnding);
+	pMediaEnding->SetBeginTime(14500);
+	mFrameElementPushMap[14500].push_back(pMediaEnding);
 
 	video = new cv::VideoWriter("D://output.avi", cv::VideoWriter::fourcc('M','J','P','G'), 60, cv::Size(GetWindowSize().Width, GetWindowSize().Height));
 
@@ -306,6 +313,24 @@ void Application::Render()
 			}
 			mFrameElementPopMap.erase(it);
 		}
+	}
+
+	if (!mMediaCarCardHidden && time >= 7000)
+	{
+		mMediaCarCardHidden = true;
+		mMediaCarCard->Hide();
+	}
+
+	if (!mModelMedialHidden && time >= 7100)
+	{
+		mModelMedialHidden = true;
+		mModelMedia->Hide();
+	}
+
+	if (!mMakeMedialHidden && time >= 7150)
+	{
+		mMakeMedialHidden = true;
+		mMakeMedia->Hide();
 	}
 
 	e3::Application::Render();

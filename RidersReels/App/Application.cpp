@@ -16,6 +16,7 @@
 #include <opencv2/opencv.hpp>
 #include "MediaEnginePower.h"
 #include "MediaEnding.h"
+#include "MediaDwinLogo.h"
 
 cv::VideoWriter* video;
 
@@ -38,12 +39,12 @@ Application::Application(const std::string& applicationName, e3::EE3OS os, e3::E
 	pImage1Frame->SetLayer(0);
 	pImage1Frame->SetElement(pImage1, EFrameElementType::Image);
 	mFrameElementPushMap[0].push_back(pImage1Frame);
-	TransitionZoomOut* pTransition1 = new TransitionZoomOut(1.2, 1.1, 0.05);
-	pImage1Frame->SetBeginTransition(pTransition1);
+	/*TransitionZoomOut* pTransition1 = new TransitionZoomOut(1.2, 1.1, 0.05);
+	pImage1Frame->SetBeginTransition(pTransition1);*/
 	PushElement(mMain);
-	EffectZoomOut* pEffectZoomOut1 = new EffectZoomOut(1.12, 1.08, 50, 2);
+	EffectZoomOut* pEffectZoomOut1 = new EffectZoomOut(1.2, 1.15, 0, 2);
 	pImage1Frame->AddEffect(pEffectZoomOut1);
-	EffectZoomOut* pEffectZoomOut12 = new EffectZoomOut(1.08, 1.04, 2000, 0.05);
+	EffectZoomOut* pEffectZoomOut12 = new EffectZoomOut(1.15, 1.04, 2000, 0.05);
 	pImage1Frame->AddEffect(pEffectZoomOut12);
 	EffectZoomOut* pEffectZoomOut13 = new EffectZoomOut(1.04, 1.0, 2100, 2);
 	pImage1Frame->AddEffect(pEffectZoomOut13);
@@ -83,6 +84,7 @@ Application::Application(const std::string& applicationName, e3::EE3OS os, e3::E
 	pImage3Frame->AddEffect(pEffectRotation3);
 
 	FrameElement* pImage4Frame = new FrameElement();
+	pImage4Frame->SetDuration(4000);
 	e3::Element* pImage4 = new e3::Element();
 	pImage4->SetBackgroundImageAsset("RidersReels/img4.jpg");
 	pImage4->SetBackgroundImageFit(e3::EBackgroundSize::Cover);
@@ -97,6 +99,20 @@ Application::Application(const std::string& applicationName, e3::EE3OS os, e3::E
 	EffectRotation* pEffectRotation4 = new EffectRotation(5, 2, 12000, 4);
 	pImage4Frame->AddEffect(pEffectRotation4);
 
+	FrameElement* pImage5Frame = new FrameElement();
+	e3::Element* pImage5 = new e3::Element();
+	pImage5->SetBackgroundImageAsset("RidersReels/img5.jpg");
+	pImage5->SetBackgroundImageFit(e3::EBackgroundSize::Cover);
+	pImage5Frame->SetBeginTime(16000);
+	pImage5Frame->SetLayer(0);
+	pImage5Frame->SetElement(pImage5, EFrameElementType::Image);
+	mFrameElementPushMap[16000].push_back(pImage5Frame);
+	TransitionZoomOut* pTransition5 = new TransitionZoomOut(1.2, 1.1, 0.1);
+	pImage5Frame->SetBeginTransition(pTransition5);
+	EffectZoomOut* pEffectZoomOut5 = new EffectZoomOut(1.1, 1.0, 16100, 4);
+	pImage5Frame->AddEffect(pEffectZoomOut5);
+	EffectRotation* pEffectRotation5 = new EffectRotation(5, 2, 16000, 4);
+	pImage5Frame->AddEffect(pEffectRotation5);
 
 	FrameElement* pRidersTitleOverlayFrame = new FrameElement();
 	pRidersTitleOverlayFrame->SetDuration(2000);
@@ -108,9 +124,9 @@ Application::Application(const std::string& applicationName, e3::EE3OS os, e3::E
 	pRidersTitleOverlayFrame->SetLayer(1);
 	pRidersTitleOverlayFrame->SetBeginTime(2000);
 	mFrameElementPushMap[2000].push_back(pRidersTitleOverlayFrame);
-	TransitionFadeIn* pFadeInRidersTitle = new TransitionFadeIn(0, 0.3, 0.1);
+	TransitionFadeIn* pFadeInRidersTitle = new TransitionFadeIn(0, 0.5, 0.1);
 	pRidersTitleOverlayFrame->SetBeginTransition(pFadeInRidersTitle);
-	TransitionFadeOut* pFadeOutRidersTitle = new TransitionFadeOut(0.7, 0.0, 0.1);
+	TransitionFadeOut* pFadeOutRidersTitle = new TransitionFadeOut(0.5, 0.0, 0.1);
 	pRidersTitleOverlayFrame->SetEndTransition(pFadeOutRidersTitle);
 
 	FrameElement* pRidersFrame = new FrameElement();
@@ -138,6 +154,12 @@ Application::Application(const std::string& applicationName, e3::EE3OS os, e3::E
 	pRidersAmText->SetLayer(3);
 	pRidersAmText->SetBeginTime(2100);
 	mFrameElementPushMap[2100].push_back(pRidersAmText);
+
+	MediaDwinLogo* pMediaDwinLogo = new MediaDwinLogo();
+	pMediaDwinLogo->SetDuration(1700);
+	pMediaDwinLogo->SetLayer(4);
+	pMediaDwinLogo->SetBeginTime(2300);
+	mFrameElementPushMap[2300].push_back(pMediaDwinLogo);
 
 	MediaCarCard* pMediaCarCar = new MediaCarCard();
 	pMediaCarCar->SetDuration(4000);
@@ -287,8 +309,8 @@ void Application::Render()
 	}
 
 	e3::Application::Render();
-	return;
-	if (time > 16000)  {
+	 return;
+	if (time > 20000)  {
 
 		video->release();
 		return;

@@ -1,4 +1,5 @@
 #include "MediaEnginePower.h"
+#include "Timeline.h"
 
 MediaEnignePower::MediaEnignePower(e3::Element* pParent)
     : FrameElement(pParent)
@@ -64,6 +65,35 @@ MediaEnignePower::MediaEnignePower(e3::Element* pParent)
     pHp->SetFontFamily("open sans");
     pHp->SetFontStyle(e3::EFontStyle::SemiBold);
     pHpWrap->AddElement(pHp);
+
+    mEndOverlay = new e3::Element();
+    mEndOverlay->SetHeight(60);
+    mEndOverlay->SetBackgroundColor(glm::vec4(255, 0, 0, 255));
+    mEndOverlay->SetPositionType(e3::EPositionType::Absolute);
+    mEndOverlay->SetWidth("50%");
+    mEndOverlay->SetOpacity(0);
+    pElement->AddElement(mEndOverlay);
+}
+
+void MediaEnignePower::AnimateEnding()
+{
+    mEndOverlay->SetOpacity(1);
+    e3::Animation* pA = new e3::Animation(this);
+    pA->Start(0.1, 0, 1, [this](float v){
+        mEndOverlay->SetScale(glm::vec3(v, 1, 1), e3::ETransformAlignment::Left);
+
+    }, [this](){
+        mIcon->SetOpacity(0);
+        mTitleWrap->SetOpacity(0);
+        mValueWrap->SetOpacity(0);
+        e3::Animation* pA = new e3::Animation(this);
+        pA->Start(0.1, 1, 0, [this](float v){
+            mEndOverlay->SetScale(glm::vec3(v, 1, 1), e3::ETransformAlignment::Right);
+            mElement->SetBackgroundColor(glm::vec4(0, 0, 0, 100 * (v)));
+        }, [](){
+            
+        });
+    });
 }
 
 void MediaEnignePower::AnimateValueText()
@@ -113,6 +143,13 @@ void MediaEnignePower::Render()
             AnimateTitle();
         });
         mFirstFrame = false;
+    }
+
+    double time = Timeline::Get()->GetTime();
+    if (!mEndingAnimated && time - mBeginTime >= 2000)
+    {
+        mEndingAnimated = true;
+        AnimateEnding();
     }
 
     FrameElement::Render();

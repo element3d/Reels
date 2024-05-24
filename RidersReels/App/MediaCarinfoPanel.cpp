@@ -1,5 +1,6 @@
 #include "MediaCarinfoPanel.h"
 #include "CarInfoItem.h"
+#include "Timeline.h"
 
 MediaCarInfoPanel::MediaCarInfoPanel(e3::Element* pParent) 
 	: FrameElement(pParent)
@@ -21,14 +22,14 @@ MediaCarInfoPanel::MediaCarInfoPanel(e3::Element* pParent)
 	mFrame->SetPaddingTop(20);
 	pElement->AddElement(mFrame);
 
-	CarInfoItem* pMileage = new CarInfoItem("MILEAGE", "120.000 KM");
+	/*CarInfoItem* pMileage = new CarInfoItem("MILEAGE", "120.000 KM");
 	mFrame->AddElement(pMileage);
 	CarInfoItem* pYear = new CarInfoItem("YEAR", "2012");
 	mFrame->AddElement(pYear);
 	CarInfoItem* pTransmission = new CarInfoItem("TRANSMISSION", "AUTOMATIC");
 	mFrame->AddElement(pTransmission);
 	CarInfoItem* pLocation = new CarInfoItem("LOCATION", "LORI");
-	mFrame->AddElement(pLocation);
+	mFrame->AddElement(pLocation);*/
 }
 
 void MediaCarInfoPanel::Render() 
@@ -43,6 +44,33 @@ void MediaCarInfoPanel::Render()
 			
 		});
 		mFirstFrame = false;
+	}
+	double time = Timeline::Get()->GetTime();
+	double diff = time - mBeginTime;
+
+	if (!mMileageAdded && diff >= 200) 
+	{
+		mMileageAdded = true;
+		CarInfoItem* pMileage = new CarInfoItem("MILEAGE", "120.000 KM");
+		mFrame->AddElement(pMileage);
+	}
+	if (!mYearAdded && diff >= 250) 
+	{
+		mYearAdded = true;
+		CarInfoItem* pYear = new CarInfoItem("YEAR", "2012");
+		mFrame->AddElement(pYear);
+	}
+	if (!mTransmissionAdded && diff >= 300) 
+	{
+		mTransmissionAdded = true;
+		CarInfoItem* pTransmission = new CarInfoItem("TRANSMISSION", "AUTOMATIC");
+		mFrame->AddElement(pTransmission);
+	}
+	if (!mLocationAdded && diff >= 350) 
+	{
+		mLocationAdded = true;
+		CarInfoItem* pLocation = new CarInfoItem("LOCATION", "LORI");
+		mFrame->AddElement(pLocation);
 	}
 	FrameElement::Render();
 }

@@ -11,4 +11,9 @@ public:
 private:
 	bool mFirstFrame = true;
 	e3::Element* mFrame;
+	bool mMileageAdded = false;
+	bool mYearAdded = false;
+	bool mTransmissionAdded = false;
+	bool mLocationAdded = false;
+
 };

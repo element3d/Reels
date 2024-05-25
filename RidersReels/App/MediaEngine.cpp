@@ -15,7 +15,7 @@ MediaEngine::MediaEngine(e3::Element* pParent)
     mIcon->SetHeight(50);
     mIcon->SetFont("RidersReels/icons.ttf");
     mIcon->SetColor(glm::vec4(255));
-    mIcon->SetCharcode("E902");
+    mIcon->SetCharcode("E909");
     pElement->AddElement(mIcon);
 
     mTitleWrap = new e3::Element();
@@ -25,12 +25,13 @@ MediaEngine::MediaEngine(e3::Element* pParent)
     mTitleWrap->SetPaddingLeft(10);
     pElement->AddElement(mTitleWrap);
     mTitle = new e3::Text();
-    mTitle->SetText("ENGINE");
+    mTitle->SetText("engine", true);
     mTitle->SetFontSize(30);
     mTitle->SetFontFamily("open sans");
     mTitle->SetFontStyle(e3::EFontStyle::SemiBold);
     mTitle->SetTextColor(glm::vec4(255));
     mTitleWrap->AddElement(mTitle);
+
 
     mValueWrap = new e3::Element();
   //  mValueWrap->SetVisibility(e3::EVisibility::Hidden);
@@ -39,12 +40,12 @@ MediaEngine::MediaEngine(e3::Element* pParent)
     mValueWrap->SetHeight(40);
     // mValueWrap->SetWidth(0);
    // mValueWrap->SetOverflow(e3::EOverflow::Hidden);
-    mValueWrap->SetMarginLeft(20);
+    mValueWrap->SetMarginLeft(30);
     pElement->AddElement(mValueWrap);
 
     mValue = new e3::Text();
-    mValue->SetWidth(80);
-    mValue->SetText("150");
+    mValue->SetWidth(250);
+    mValue->SetText("1.8L, L4 Turbo");
     mValue->SetFontSize(30);
     mValue->SetTextColor(glm::vec4(0, 0, 0, 255));
     mValue->SetFontFamily("open sans");
@@ -55,7 +56,7 @@ MediaEngine::MediaEngine(e3::Element* pParent)
     pHpWrap->SetWidth(40);
     pHpWrap->SetHeight(40);
     pHpWrap->SetBackgroundColor(glm::vec4(0, 0, 0, 255));
-    mValueWrap->AddElement(pHpWrap);
+   // mValueWrap->AddElement(pHpWrap);
 
     e3::Text* pHp = new e3::Text();
     pHp->SetText("HP");

@@ -18,12 +18,15 @@
 #include "MediaEnding.h"
 #include "MediaDwinLogo.h"
 #include "MediaEngine.h"
+#include <e3/i18n.h>
 
 cv::VideoWriter* video;
 
 Application::Application(const std::string& applicationName, e3::EE3OS os, e3::EE3Target target, e3::Size2i windowSize, e3::Size2i resolution) 
 	: ApplicationBase(applicationName, os, target, windowSize, resolution)
 {
+	e3::i18n::Get()->SetLocale("ru");
+
 	e3::Typography::AddFont("facon", e3::EFontStyle::Normal, "RidersReels/fonts/facon.ttf");
 	e3::Typography::AddFont("open sans", e3::EFontStyle::Normal, "RidersReels/fonts/OpenSans-Regular.ttf");
 	e3::Typography::AddFont("open sans", e3::EFontStyle::Bold, "RidersReels/fonts/OpenSans-Bold.ttf");
@@ -43,9 +46,9 @@ Application::Application(const std::string& applicationName, e3::EE3OS os, e3::E
 	/*TransitionZoomOut* pTransition1 = new TransitionZoomOut(1.2, 1.1, 0.05);
 	pImage1Frame->SetBeginTransition(pTransition1);*/
 	PushElement(mMain);
-	EffectZoomOut* pEffectZoomOut1 = new EffectZoomOut(1.2, 1.15, 0, 2);
+	EffectZoomOut* pEffectZoomOut1 = new EffectZoomOut(1.4, 1.3, 0, 2);
 	pImage1Frame->AddEffect(pEffectZoomOut1);
-	EffectZoomOut* pEffectZoomOut12 = new EffectZoomOut(1.15, 1.04, 2000, 0.05);
+	EffectZoomOut* pEffectZoomOut12 = new EffectZoomOut(1.3, 1.04, 2000, 0.05);
 	pImage1Frame->AddEffect(pEffectZoomOut12);
 	EffectZoomOut* pEffectZoomOut13 = new EffectZoomOut(1.04, 1.0, 2100, 2);
 	pImage1Frame->AddEffect(pEffectZoomOut13);
@@ -193,16 +196,16 @@ Application::Application(const std::string& applicationName, e3::EE3OS os, e3::E
 	mFrameElementPushMap[4700].push_back(pMediaCarInfoPanel);
 
 	MediaEngine* pMediaEngine = new MediaEngine();
-	pMediaEngine->SetDuration(3000);
+	pMediaEngine->SetDuration(2800);
 	pMediaEngine->SetLayer(1);
 	pMediaEngine->SetBeginTime(8000);
 	mFrameElementPushMap[8000].push_back(pMediaEngine);
 
 	MediaEnignePower* pMediaEnignePower = new MediaEnignePower();
-	pMediaEnignePower->SetDuration(3000);
+	pMediaEnignePower->SetDuration(3200);
 	pMediaEnignePower->SetLayer(1);
-	pMediaEnignePower->SetBeginTime(11000);
-	mFrameElementPushMap[11000].push_back(pMediaEnignePower);
+	pMediaEnignePower->SetBeginTime(10800);
+	mFrameElementPushMap[10800].push_back(pMediaEnignePower);
 
 	MediaEnding* pMediaEnding = new MediaEnding();
 	pMediaEnding->SetDuration(4000);
@@ -256,6 +259,7 @@ void Application::Render()
 	{
 		mFirstFrame = false;
 		Timeline::Get()->Begin();
+
 	}
 	Timeline::Get()->OnFrame();
 	long time = Timeline::Get()->GetTime();
@@ -334,7 +338,7 @@ void Application::Render()
 	}
 
 	e3::Application::Render();
-	 return;
+	//  return;
 	if (time > 20000)  {
 
 		video->release();

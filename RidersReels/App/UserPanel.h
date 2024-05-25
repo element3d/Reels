@@ -10,9 +10,17 @@ public:
 	virtual void Render() override;
 
 private:
+	bool mFirstFrame = true;
+
+	e3::Element* mAvatarWrap = nullptr;
 	e3::Element* mAvatar = nullptr;
+	e3::Element* mAvatarOverlay = nullptr;
+
 	e3::Element* mNameWrap = nullptr;
 	e3::Text* mName = nullptr;
+	e3::Element* mNameOverlay = nullptr;
 
 	e3::Element* mPhoneWrap = nullptr;
+	e3::Element* mPhoneCont = nullptr;
+
 };

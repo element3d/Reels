@@ -51,25 +51,25 @@ void MediaCarInfoPanel::Render()
 	if (!mMileageAdded && diff >= 200) 
 	{
 		mMileageAdded = true;
-		CarInfoItem* pMileage = new CarInfoItem("MILEAGE", "120.000 KM");
+		CarInfoItem* pMileage = new CarInfoItem("mileage", "120.000 KM", "E906");
 		mFrame->AddElement(pMileage);
 	}
 	if (!mYearAdded && diff >= 250) 
 	{
 		mYearAdded = true;
-		CarInfoItem* pYear = new CarInfoItem("YEAR", "2012");
+		CarInfoItem* pYear = new CarInfoItem("year", "2012", "E900");
 		mFrame->AddElement(pYear);
 	}
 	if (!mTransmissionAdded && diff >= 300) 
 	{
 		mTransmissionAdded = true;
-		CarInfoItem* pTransmission = new CarInfoItem("TRANSMISSION", "AUTOMATIC");
+		CarInfoItem* pTransmission = new CarInfoItem("transmission", "AUTOMATIC", "E908");
 		mFrame->AddElement(pTransmission);
 	}
 	if (!mLocationAdded && diff >= 350) 
 	{
 		mLocationAdded = true;
-		CarInfoItem* pLocation = new CarInfoItem("LOCATION", "LORI");
+		CarInfoItem* pLocation = new CarInfoItem("location", "LORI", "E903");
 		mFrame->AddElement(pLocation);
 	}
 	FrameElement::Render();

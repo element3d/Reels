@@ -1,6 +1,6 @@
 #include "CarInfoItem.h"
 
-CarInfoItem::CarInfoItem(const std::string& title, const std::string& value, e3::Element* pParent)
+CarInfoItem::CarInfoItem(const std::string& title, const std::string& value, const std::string& charcode, e3::Element* pParent)
 	: e3::Element(pParent)
 {
 	SetWidth("100%");
@@ -13,16 +13,16 @@ CarInfoItem::CarInfoItem(const std::string& title, const std::string& value, e3:
 
 	mIcon = new e3::FontIcon();
 	mIcon->SetFont("RidersReels/icons.ttf");
-	mIcon->SetCharcode("E902");
+	mIcon->SetCharcode(charcode);
 	mIcon->SetColor(glm::vec4(255));
-	mIcon->SetWidth(30);
-	mIcon->SetHeight(30);
+	mIcon->SetWidth(36);
+	mIcon->SetHeight(36);
 	pLeft->AddElement(mIcon);
 
 	mTitle = new e3::Text();
-	mTitle->SetText(title);
+	mTitle->SetText(title, true);
 	mTitle->SetTextColor(glm::vec4(255));
-	mTitle->SetFontSize(16);
+	mTitle->SetFontSize(20);
 	mTitle->SetMarginLeft(10);
 	mTitle->SetFontFamily("open sans");
 	mTitle->SetFontStyle(e3::EFontStyle::Bold);
@@ -52,13 +52,13 @@ CarInfoItem::CarInfoItem(const std::string& title, const std::string& value, e3:
 	mValue = new e3::Text();
 	mValue->SetText(value);
 	mValue->SetTextColor(glm::vec4(0, 0, 0, 255));
-	mValue->SetFontSize(16);
+	mValue->SetFontSize(20);
 	// mValue->SetMarginLeft(10);
 	mValue->SetFontFamily("open sans");
 	mValue->SetFontStyle(e3::EFontStyle::Bold);
 	mValueWrap->AddElement(mValue);
-		mValue->SetMarginLeft(20);
-	mValue->SetMarginRight(20);
+		mValue->SetMarginLeft(10);
+	mValue->SetMarginRight(10);
 	mTitle->SetOpacity(0);
 }
 

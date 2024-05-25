@@ -1,0 +1,9 @@
+{
+	"app_name": "RidersReels",
+	"engine": "ДВИГАТЕЛЬ",
+        "mileage": "ПРОБЕГ",
+        "year": "ГОД",
+	"transmission": "ТРАНСМИССИЯ",
+	"location": "МЕСТО",
+	"power": "МОЩНОСТЬ"
+}

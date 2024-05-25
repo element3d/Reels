@@ -26,7 +26,7 @@ MediaEnignePower::MediaEnignePower(e3::Element* pParent)
     mTitleWrap->SetPaddingLeft(10);
     pElement->AddElement(mTitleWrap);
     mTitle = new e3::Text();
-    mTitle->SetText("ENGINE POWER");
+    mTitle->SetText("power", true);
     mTitle->SetFontSize(30);
     mTitle->SetFontFamily("open sans");
     mTitle->SetFontStyle(e3::EFontStyle::SemiBold);
@@ -137,7 +137,7 @@ void MediaEnignePower::Render()
         e3::Animation* pA = new e3::Animation(this);
         pA->Start(0.1, 4.0, 1.0, [this](float v){
             mIcon->SetScale(glm::vec3(v, v, 1), e3::ETransformAlignment::Center);        
-            mElement->SetBackgroundColor(glm::vec4(0, 0, 0, (1-v/4) * 120));
+      //      mElement->SetBackgroundColor(glm::vec4(0, 0, 0, (1-v/4) * 120));
 
         }, [this](){
             AnimateTitle();
@@ -146,7 +146,7 @@ void MediaEnignePower::Render()
     }
 
     double time = Timeline::Get()->GetTime();
-    if (!mEndingAnimated && time - mBeginTime >= 1800)
+    if (!mEndingAnimated && time - mBeginTime >= 2200)
     {
         mEndingAnimated = true;
         AnimateEnding();

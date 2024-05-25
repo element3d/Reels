@@ -70,11 +70,11 @@ CarCard::CarCard(e3::Element* pParent)
 	e3::Element* pYearCont = new e3::Element();
 	pYearCont->SetBackgroundColor(glm::vec4(255, 0,0, 255));
 	pYearCont->SetHeight(26);
-	pYearCont->SetWidth(60);
-	pYearCont->SetPaddingLeft(5);
+	pYearCont->SetWidth(80);
+	pYearCont->SetPaddingLeft(8);
 	pYearCont->SetPositionType(e3::EPositionType::Absolute);
-	pYearCont->SetTop(0);
-	pYearCont->SetRight(0);
+	pYearCont->SetTop(2);
+	pYearCont->SetRight(2);
 	pYearCont->BeginPath();
 	pYearCont->MoveTo(0,0);
 	pYearCont->LineTo("100%", 0);
@@ -104,9 +104,9 @@ CarCard::CarCard(e3::Element* pParent)
 
 	e3::Text* pYear = new e3::Text();
 	pYear->SetText("2012");
-	pYear->SetFontSize(14);
+	pYear->SetFontSize(17);
 	pYear->SetFontFamily("open sans");
-	pYear->SetFontStyle(e3::EFontStyle::Bold);
+	pYear->SetFontStyle(e3::EFontStyle::SemiBold);
 	pYear->SetTextColor(glm::vec4(0, 0, 0, 255));
 	pYearContInner->AddElement(pYear);
 
@@ -118,8 +118,8 @@ CarCard::CarCard(e3::Element* pParent)
 	pModelCont->SetPaddingLeft(10);
 	pModelCont->SetPaddingRight(40);
 	pModelCont->SetPositionType(e3::EPositionType::Absolute);
-	pModelCont->SetBottom(0);
-	pModelCont->SetLeft(0);
+	pModelCont->SetBottom(2);
+	pModelCont->SetLeft(2);
 	pModelCont->BeginPath();
 	pModelCont->MoveTo(0, 0);
 	pModelCont->LineTo("80%", 0);
@@ -131,9 +131,9 @@ CarCard::CarCard(e3::Element* pParent)
 
 	e3::Text* pModel = new e3::Text();
 	pModel->SetText("W204 C250");
-	pModel->SetFontSize(14);
+	pModel->SetFontSize(18);
 	pModel->SetFontFamily("open sans");
-	pModel->SetFontStyle(e3::EFontStyle::Bold);
+	pModel->SetFontStyle(e3::EFontStyle::SemiBold);
 	pModel->SetTextColor(glm::vec4(0, 0, 0, 255));
 	pModelCont->AddElement(pModel);
 
@@ -144,15 +144,15 @@ CarCard::CarCard(e3::Element* pParent)
 	pMakeCont->SetPaddingLeft(10);
 	pMakeCont->SetPaddingRight(10);
 	pMakeCont->SetPositionType(e3::EPositionType::Absolute);
-	pMakeCont->SetBottom(26);
-	pMakeCont->SetLeft(0);
+	pMakeCont->SetBottom(28);
+	pMakeCont->SetLeft(2);
 	mCard->AddElement(pMakeCont);
 
 	e3::Text* pMake = new e3::Text();
 	pMake->SetText("MERECEDES BENZ");
-	pMake->SetFontSize(14);
+	pMake->SetFontSize(18);
 	pMake->SetFontFamily("open sans");
-	pMake->SetFontStyle(e3::EFontStyle::Bold);
+	pMake->SetFontStyle(e3::EFontStyle::SemiBold);
 	pMake->SetTextColor(glm::vec4(255));
 	pMakeCont->AddElement(pMake);
 }

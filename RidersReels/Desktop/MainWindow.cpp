@@ -3,7 +3,7 @@
 
 MainWindow::MainWindow(e3::WindowCreateInfo* pWindowCreateInfo) : e3::Window(pWindowCreateInfo)
 {
-	Application* pApp = new Application("E3Demo", e3::EE3OS::Windows, e3::EE3Target::Desktop, pWindowCreateInfo->Size, pWindowCreateInfo->Resoluction);
+	Application* pApp = new Application("RidersReels", e3::EE3OS::Windows, e3::EE3Target::Desktop, pWindowCreateInfo->Size, pWindowCreateInfo->Resoluction);
 	SetApplication(pApp);
 }
 

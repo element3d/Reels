@@ -8,7 +8,7 @@ MediaDwinLogo::MediaDwinLogo(e3::Element* pParent)
     SetElement(pElement, EFrameElementType::Element);
 
     mWrap = new e3::Element();
-    mWrap->SetHeight(100);
+    mWrap->SetHeight(70);
     mWrap->SetMarginTop(500);
     mWrap->SetAlignItemsVer(e3::EAlignment::Start);
  //   mWrap->SetBackgroundColor()
@@ -35,7 +35,7 @@ void MediaDwinLogo::Render()
     {
         e3::Animation* pA = new e3::Animation(this);
         pA->Start(0.5, [this](float v){
-            mOverlay->SetHeight((v) * 100);
+            mOverlay->SetHeight((v) * 70);
             mOverlay->SetOpacity(1 - v);
             mLogo->SetOpacity(v);
         }, [](){

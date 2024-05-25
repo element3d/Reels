@@ -7,7 +7,7 @@
 class CarInfoItem : public e3::Element 
 {
 public:
-	CarInfoItem(const std::string& title, const std::string& value, e3::Element* pParent = nullptr);
+	CarInfoItem(const std::string& title, const std::string& value, const std::string& charcode, e3::Element* pParent = nullptr);
 	virtual void Render() override;
 	void AnimateTitle();
 	void AnimateValue();

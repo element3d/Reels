@@ -25,7 +25,7 @@ MediaAnimatedText::MediaAnimatedText(e3::Element* pParent)
 
 	e3::Text* pR = new e3::Text();
 	pR->SetText("R");
-	pR->SetFontSize(36);
+	pR->SetFontSize(46);
 	pR->SetFontFamily("facon");
 	pR->SetTextColor(glm::vec4(195, 251, 18, 255));
 	mTextWrap->AddElement(pR);
@@ -34,7 +34,7 @@ MediaAnimatedText::MediaAnimatedText(e3::Element* pParent)
 	pWWW->SetText("WWW.RIDERS.AM");
 	pWWW->SetMarginLeft(10);
 	pWWW->SetFontFamily("open sans");
-	pWWW->SetFontSize(20);
+	pWWW->SetFontSize(30);
 	pWWW->SetFontStyle(e3::EFontStyle::SemiBold);
 	pWWW->SetTextColor(glm::vec4(255));
 	mTextWrap->AddElement(pWWW);

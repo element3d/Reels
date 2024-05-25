@@ -1,3 +1,9 @@
 {
-	"app_name": "RidersReels"
+	"app_name": "RidersReels",
+	"engine": "ENGINE",
+        "mileage": "MILEAGE",
+        "year": "YEAR",
+	"transmission": "TRANSMISSION",
+	"location": "LOCATION",
+	"power": "ENGINE POWER"
 }

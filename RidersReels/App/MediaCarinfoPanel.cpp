@@ -51,26 +51,45 @@ void MediaCarInfoPanel::Render()
 	if (!mMileageAdded && diff >= 200) 
 	{
 		mMileageAdded = true;
-		CarInfoItem* pMileage = new CarInfoItem("mileage", "120.000 KM", "E906");
+		CarInfoItem* pMileage = new CarInfoItem("mileage", "115.000 KM", "E906");
 		mFrame->AddElement(pMileage);
 	}
 	if (!mYearAdded && diff >= 250) 
 	{
 		mYearAdded = true;
-		CarInfoItem* pYear = new CarInfoItem("year", "2012", "E900");
+		CarInfoItem* pYear = new CarInfoItem("year", "2010", "E900");
 		mFrame->AddElement(pYear);
 	}
 	if (!mTransmissionAdded && diff >= 300) 
 	{
 		mTransmissionAdded = true;
-		CarInfoItem* pTransmission = new CarInfoItem("transmission", "AUTOMATIC", "E908");
+		CarInfoItem* pTransmission = new CarInfoItem("transmission", "automatic", "E908");
 		mFrame->AddElement(pTransmission);
 	}
 	if (!mLocationAdded && diff >= 350) 
 	{
 		mLocationAdded = true;
-		CarInfoItem* pLocation = new CarInfoItem("location", "LORI", "E903");
+		CarInfoItem* pLocation = new CarInfoItem("location", "lori", "E903");
 		mFrame->AddElement(pLocation);
 	}
+	if (!mDriveTypeAdded && diff >= 400) 
+	{
+		mDriveTypeAdded = true;
+		CarInfoItem* pDriveType = new CarInfoItem("drive_type", "rear_wheel_drive", "E90C");
+		mFrame->AddElement(pDriveType);
+	}
+	if (!mBodyTypeAdded && diff >= 450) 
+	{
+		mBodyTypeAdded = true;
+		CarInfoItem* pBodyType = new CarInfoItem("body_type", "sedan", "E90D");
+		mFrame->AddElement(pBodyType);
+	}
+	if (!mStWheelAdded && diff >= 500) 
+	{
+		mStWheelAdded = true;
+		CarInfoItem* pStWheel = new CarInfoItem("st_wheel", "left", "E901");
+		mFrame->AddElement(pStWheel);
+	}
+
 	FrameElement::Render();
 }

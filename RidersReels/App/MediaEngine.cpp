@@ -5,7 +5,7 @@ MediaEngine::MediaEngine(e3::Element* pParent)
 {
     e3::Element* pElement = new e3::Element();
     pElement->SetWidth("100%");
-    pElement->SetBackgroundColor(glm::vec4(0, 0, 0, 100));
+    pElement->SetBackgroundColor(glm::vec4(0, 0, 0, 150));
     pElement->SetPaddingBottom(20);
     pElement->SetPaddingTop(20);
     SetElement(pElement, EFrameElementType::Element);
@@ -22,7 +22,7 @@ MediaEngine::MediaEngine(e3::Element* pParent)
    // mTitleWrap->SetWidth(0);
     mTitleWrap->SetAlignItemsHor(e3::EAlignment::Start);
     mTitleWrap->SetOverflow(e3::EOverflow::Hidden);
-    mTitleWrap->SetPaddingLeft(10);
+    mTitleWrap->SetPaddingLeft(20);
     pElement->AddElement(mTitleWrap);
     mTitle = new e3::Text();
     mTitle->SetText("engine", true);
@@ -45,7 +45,7 @@ MediaEngine::MediaEngine(e3::Element* pParent)
 
     mValue = new e3::Text();
     mValue->SetWidth(250);
-    mValue->SetText("1.8L, L4 Turbo");
+    mValue->SetText("3.5L, V6");
     mValue->SetFontSize(30);
     mValue->SetTextColor(glm::vec4(0, 0, 0, 255));
     mValue->SetFontFamily("open sans");
@@ -68,7 +68,7 @@ MediaEngine::MediaEngine(e3::Element* pParent)
 
     mOverlay = new e3::Element();
     mOverlay->SetHeight(60);
-    mOverlay->SetBackgroundColor(glm::vec4(255, 0, 0, 255));
+    mOverlay->SetBackgroundColor(glm::vec4(255, 0, 84, 255));
     mOverlay->SetPositionType(e3::EPositionType::Absolute);
     mOverlay->SetWidth("50%");
     mOverlay->SetOpacity(0);
@@ -87,7 +87,7 @@ void MediaEngine::Render()
         e3::Animation* pA = new e3::Animation(this);
         pA->Start(0.2, 0, 1, [this](float v) {
             mOverlay->SetScale(glm::vec3(v, 1, 1), e3::ETransformAlignment::Left);
-            mElement->SetBackgroundColor(glm::vec4(0, 0, 0, 100 * (v)));
+            mElement->SetBackgroundColor(glm::vec4(0, 0, 0, 150 * (v)));
 
             }, [this]() {
                 mIcon->SetOpacity(1);

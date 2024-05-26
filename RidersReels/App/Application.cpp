@@ -33,11 +33,12 @@ Application::Application(const std::string& applicationName, e3::EE3OS os, e3::E
 	e3::Typography::AddFont("open sans", e3::EFontStyle::SemiBold, "RidersReels/fonts/OpenSans-ExtraBold.ttf");
 
 	mMain = new e3::Element();
+	mMain->SetBackgroundColor(glm::vec4(7, 19, 45, 255));
 
 	FrameElement* pImage1Frame = new FrameElement();
 	pImage1Frame->SetDuration(4000);
 	e3::Element* pImage1 = new e3::Element();
-	pImage1->SetBackgroundImageAsset("RidersReels/img.jpg");
+	pImage1->SetBackgroundImageAsset("RidersReels/img.jpeg");
 	pImage1->SetBackgroundImageFit(e3::EBackgroundSize::Cover);
 	pImage1Frame->SetBeginTime(0);
 	pImage1Frame->SetLayer(0);
@@ -58,7 +59,7 @@ Application::Application(const std::string& applicationName, e3::EE3OS os, e3::E
 	FrameElement* pImage2Frame = new FrameElement();
 	pImage2Frame->SetDuration(4000);
 	e3::Element* pImage2 = new e3::Element();
-	pImage2->SetBackgroundImageAsset("RidersReels/img2.jpg");
+	pImage2->SetBackgroundImageAsset("RidersReels/img2.jpeg");
 	pImage2->SetBackgroundImageFit(e3::EBackgroundSize::Cover);
 	pImage2Frame->SetBeginTime(4000);
 	pImage2Frame->SetLayer(0);
@@ -74,7 +75,7 @@ Application::Application(const std::string& applicationName, e3::EE3OS os, e3::E
 	FrameElement* pImage3Frame = new FrameElement();
 	pImage3Frame->SetDuration(3500);
 	e3::Element* pImage3 = new e3::Element();
-	pImage3->SetBackgroundImageAsset("RidersReels/img3.jpg");
+	pImage3->SetBackgroundImageAsset("RidersReels/img3.jpeg");
 	pImage3->SetBackgroundImageFit(e3::EBackgroundSize::Cover);
 	pImage3Frame->SetBeginTime(8000);
 	pImage3Frame->SetLayer(0);
@@ -90,7 +91,7 @@ Application::Application(const std::string& applicationName, e3::EE3OS os, e3::E
 	FrameElement* pImage4Frame = new FrameElement();
 	pImage4Frame->SetDuration(3300);
 	e3::Element* pImage4 = new e3::Element();
-	pImage4->SetBackgroundImageAsset("RidersReels/img4.jpg");
+	pImage4->SetBackgroundImageAsset("RidersReels/img4.jpeg");
 	pImage4->SetBackgroundImageFit(e3::EBackgroundSize::Cover);
 	pImage4Frame->SetBeginTime(11500);
 	pImage4Frame->SetLayer(0);
@@ -177,17 +178,17 @@ Application::Application(const std::string& applicationName, e3::EE3OS os, e3::E
 	mMakeMedia->SetBeginTime(4100);
 	mFrameElementPushMap[4100].push_back(mMakeMedia);
 
-	mModelMedia = new MediaAnimatedText2(220, 110, "W204 C250");
+	mModelMedia = new MediaAnimatedText2(220, 110, "W212 E350");
 	mModelMedia->SetDuration(3800);
 	mModelMedia->SetLayer(4);
 	mModelMedia->SetBeginTime(4200);
 	mFrameElementPushMap[4200].push_back(mModelMedia);
 
-	MediaStars* pMediaStars = new MediaStars();
-	pMediaStars->SetDuration(3500);
-	pMediaStars->SetLayer(5);
-	pMediaStars->SetBeginTime(4500);
-	mFrameElementPushMap[4500].push_back(pMediaStars);
+	mMediaStars = new MediaStars();
+	mMediaStars->SetDuration(3500);
+	mMediaStars->SetLayer(5);
+	mMediaStars->SetBeginTime(4500);
+	mFrameElementPushMap[4500].push_back(mMediaStars);
 
 	MediaCarInfoPanel* pMediaCarInfoPanel = new MediaCarInfoPanel();
 	pMediaCarInfoPanel->SetDuration(3300);
@@ -208,7 +209,7 @@ Application::Application(const std::string& applicationName, e3::EE3OS os, e3::E
 	mFrameElementPushMap[10800].push_back(pMediaEnignePower);
 
 	MediaEnding* pMediaEnding = new MediaEnding();
-	pMediaEnding->SetDuration(4000);
+	pMediaEnding->SetDuration(8000);
 	pMediaEnding->SetLayer(1);
 	pMediaEnding->SetBeginTime(14500);
 	mFrameElementPushMap[14500].push_back(pMediaEnding);
@@ -257,7 +258,7 @@ void Application::Render()
 
 	if (mFirstFrame) 
 	{
-		mFirstFrame = false;
+		// mFirstFrame = false;
 		Timeline::Get()->Begin();
 
 	}
@@ -319,27 +320,34 @@ void Application::Render()
 		}
 	}
 
-	if (!mMediaCarCardHidden && time >= 7000)
+	if (!mMediaCarCardHidden && time >= 7200)
 	{
 		mMediaCarCardHidden = true;
 		mMediaCarCard->Hide();
 	}
 
-	if (!mModelMedialHidden && time >= 7100)
+	if (!mModelMedialHidden && time >= 7300)
 	{
 		mModelMedialHidden = true;
 		mModelMedia->Hide();
 	}
 
-	if (!mMakeMedialHidden && time >= 7150)
+	if (!mMakeMedialHidden && time >= 7350)
 	{
 		mMakeMedialHidden = true;
 		mMakeMedia->Hide();
 	}
 
+	if (!mMediaStarsHidden && time >= 7400)
+	{
+		mMediaStarsHidden = true;
+		mMediaStars->Hide();
+	}
+
+
 	e3::Application::Render();
-	//  return;
-	if (time > 20000)  {
+	// return;
+	if (time > 22000)  {
 
 		video->release();
 		return;
@@ -377,7 +385,7 @@ void Application::Render()
 
         if (elapsedTime.count() >= frameDuration) {
             // Write the frame into the video file
-           video->write(img);
+			if (!mFirstFrame) video->write(img);
             lastFrameTime = now; // Update last frame time
         }
 
@@ -386,4 +394,5 @@ void Application::Render()
         // Print profiling information
         std::chrono::duration<double> renderTime = renderEnd - start;
         std::chrono::duration<double> writeTime = writeEnd - renderEnd;
+		mFirstFrame = false;
 }

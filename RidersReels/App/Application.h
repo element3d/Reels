@@ -6,6 +6,7 @@
 #include <map>
 #include "MediaCarCard.h"
 #include "MediaAnimatedText2.h"
+#include "MediaStars.h"
 
 class Application : public ApplicationBase
 {
@@ -30,6 +31,9 @@ public:
     bool mMakeMedialHidden = false;
     MediaAnimatedText2* mModelMedia = nullptr;
     bool mModelMedialHidden = false;
+    MediaStars* mMediaStars = nullptr;
+    bool mMediaStarsHidden = false;
+
     
 };
 

@@ -20,6 +20,31 @@ MediaStars::MediaStars(e3::Element* pPartent)
         pStar->SetOpacity(0);
         pElement->AddElement(pStar);
     }
+
+    mOverlay = new e3::Element();
+    mOverlay->SetWidth("100%");
+    mOverlay->SetHeight("100%");
+    mOverlay->SetBackgroundColor(glm::vec4(255, 0, 84, 255));
+    mOverlay->SetPositionType(e3::EPositionType::Absolute);
+    mOverlay->SetOpacity(0);
+    pElement->AddElement(mOverlay);
+}
+
+void MediaStars::Hide()
+{
+    mOverlay->SetOpacity(1);
+    e3::Animation* pA = new e3::Animation(this);
+    pA->Start(.1, 0, 1.0, [this](float v) {
+        mOverlay->SetScale(glm::vec3(v, 1, 1), e3::ETransformAlignment::Left);
+    }, [this]() {
+        for (auto* pStar : mStars) pStar->SetOpacity(0);
+        e3::Animation* pA = new e3::Animation(this);
+        pA->Start(.1, 1, 0.0, [this](float v) {
+            mOverlay->SetScale(glm::vec3(v, 1, 1), e3::ETransformAlignment::Right);
+        }, [this]() {
+       
+        });
+    });
 }
 
 void MediaStars::AnimateStar(int index)

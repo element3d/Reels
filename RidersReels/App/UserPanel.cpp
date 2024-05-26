@@ -8,7 +8,7 @@ UserPanel::UserPanel(e3::Element* pParent)
 	SetPositionType(e3::EPositionType::Absolute);
 	SetRight(200);
 	SetTop(200);
-	SetWidth(200);
+	SetWidth(240);
 
 	mAvatarWrap = new e3::Element();
 	mAvatarWrap->SetWidth(150);
@@ -40,7 +40,7 @@ UserPanel::UserPanel(e3::Element* pParent)
 	AddElement(mNameWrap);
 
 	mName = new e3::Text();
-	mName->SetText("NAREK");
+	mName->SetText("SERYOZHA");
 	mName->SetTextColor(glm::vec4(255));
 	mName->SetFontFamily("open sans");
 	mName->SetFontSize(30);
@@ -51,12 +51,12 @@ UserPanel::UserPanel(e3::Element* pParent)
 	mNameOverlay = new e3::Element();
 	mNameOverlay->SetWidth(200);
 	mNameOverlay->SetHeight(40);
-	mNameOverlay->SetBackgroundColor(glm::vec4(255, 0, 0, 255));
+	mNameOverlay->SetBackgroundColor(glm::vec4(255, 0, 84, 255));
 	mNameOverlay->SetPositionType(e3::EPositionType::Absolute);
 	mNameWrap->AddElement(mNameOverlay);
 
 	mPhoneWrap = new e3::Element();
-	mPhoneWrap->SetWidth(200);
+	mPhoneWrap->SetWidth(240);
 	mPhoneWrap->SetMarginTop(20);
 	mPhoneWrap->SetHeight(40);
 	mPhoneWrap->SetOverflow(e3::EOverflow::Hidden);
@@ -65,7 +65,7 @@ UserPanel::UserPanel(e3::Element* pParent)
 	AddElement(mPhoneWrap);
 
 	mPhoneCont = new e3::Element();
-	mPhoneCont->SetWidth(200);
+	mPhoneCont->SetWidth(240);
 	mPhoneCont->SetHeight(40);
 	mPhoneCont->SetBackgroundColor(glm::vec4(255));
 	mPhoneCont->SetBorderRadius(3);
@@ -81,9 +81,9 @@ UserPanel::UserPanel(e3::Element* pParent)
 	mPhoneCont->AddElement(pPhoneIcon);
 
 	e3::Text* pPhone = new e3::Text();
-	pPhone->SetText("098 828482");
+	pPhone->SetText("098 445878");
 	pPhone->SetFontFamily("open sans");
-	pPhone->SetFontSize(24);
+	pPhone->SetFontSize(28);
 	pPhone->SetFontStyle(e3::EFontStyle::SemiBold);
 	pPhone->SetTextColor(glm::vec4(0,0,0,255));
 	mPhoneCont->AddElement(pPhone);
@@ -111,7 +111,7 @@ void UserPanel::Render()
 					mPhoneWrap->SetOpacity(1);
 					e3::Animation* pA = new e3::Animation(this);
 					pA->Start(.2, 0, 1, [this](float v){
-						mPhoneWrap->SetWidth(v * 200);
+						mPhoneWrap->SetWidth(v * 240);
 					}, [this](){
 		
 		

@@ -50,7 +50,7 @@ CarInfoItem::CarInfoItem(const std::string& title, const std::string& value, con
 	mValueWrap->AddElement(mValueOverlay);
 
 	mValue = new e3::Text();
-	mValue->SetText(value);
+	mValue->SetText(value, true);
 	mValue->SetTextColor(glm::vec4(0, 0, 0, 255));
 	mValue->SetFontSize(20);
 	// mValue->SetMarginLeft(10);

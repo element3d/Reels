@@ -5,5 +5,13 @@
         "year": "YEAR",
 	"transmission": "TRANSMISSION",
 	"location": "LOCATION",
-	"power": "ENGINE POWER"
+	"power": "ENGINE POWER",
+	"drive_type": "DRIVE TYPE",
+	"body_type": "BODY TYPE",
+	"st_wheel": "ST WHEEL",
+	"automatic": "AUTOMATIC",
+	"lori": "LORI",
+	"rear_wheel_drive": "REAR WHEEL DRIVE",
+	"sedan": "SEDAN",
+	"left": "LEFT"
 }

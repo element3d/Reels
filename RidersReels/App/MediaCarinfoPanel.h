@@ -15,5 +15,8 @@ private:
 	bool mYearAdded = false;
 	bool mTransmissionAdded = false;
 	bool mLocationAdded = false;
+	bool mDriveTypeAdded = false;
+	bool mBodyTypeAdded = false;
+	bool mStWheelAdded = false;
 
 };

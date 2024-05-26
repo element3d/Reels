@@ -6,7 +6,7 @@ MediaEnignePower::MediaEnignePower(e3::Element* pParent)
 {
     e3::Element* pElement = new e3::Element();
     pElement->SetWidth("100%");
-    pElement->SetBackgroundColor(glm::vec4(0, 0, 0, 100));
+    pElement->SetBackgroundColor(glm::vec4(0, 0, 0, 150));
     pElement->SetPaddingBottom(20);
     pElement->SetPaddingTop(20);
     SetElement(pElement, EFrameElementType::Element);
@@ -19,19 +19,40 @@ MediaEnignePower::MediaEnignePower(e3::Element* pParent)
     mIcon->SetCharcode("E902");
     pElement->AddElement(mIcon);
 
+    mPowerWrap = new e3::Element();
+    mPowerWrap->SetOrientation(e3::EOrientation::Vertical);
+    mPowerWrap->SetPaddingLeft(10);
+    mPowerWrap->SetAlignItemsHor(e3::EAlignment::Start);
+    pElement->AddElement(mPowerWrap);
+
     mTitleWrap = new e3::Element();
     mTitleWrap->SetWidth(0);
     mTitleWrap->SetAlignItemsHor(e3::EAlignment::Start);
     mTitleWrap->SetOverflow(e3::EOverflow::Hidden);
-    mTitleWrap->SetPaddingLeft(10);
-    pElement->AddElement(mTitleWrap);
+    mPowerWrap->AddElement(mTitleWrap);
     mTitle = new e3::Text();
     mTitle->SetText("power", true);
-    mTitle->SetFontSize(30);
+    mTitle->SetFontSize(26);
     mTitle->SetFontFamily("open sans");
     mTitle->SetFontStyle(e3::EFontStyle::SemiBold);
     mTitle->SetTextColor(glm::vec4(255));
     mTitleWrap->AddElement(mTitle);
+
+    e3::Element* pPowerLine = new e3::Element();
+    pPowerLine->SetHeight(10);
+    pPowerLine->SetMarginTop(4);
+    pPowerLine->SetWidth("80%");
+    pPowerLine->SetBackgroundColor(glm::vec4(255, 255, 255, 150));
+    pPowerLine->SetAlignItemsHor(e3::EAlignment::Start);
+    mPowerWrap->AddElement(pPowerLine);
+
+    mPower = new e3::Element();
+    mPower->SetHeight(10);
+    // pPower->SetWidth("20%");
+    mPower->SetBackgroundColor(glm::vec4(255, 0, 84, 255));
+    mPower->SetOpacity(0);
+    pPowerLine->AddElement(mPower);
+
 
     mValueWrap = new e3::Element();
     mValueWrap->SetVisibility(e3::EVisibility::Hidden);
@@ -68,7 +89,7 @@ MediaEnignePower::MediaEnignePower(e3::Element* pParent)
 
     mEndOverlay = new e3::Element();
     mEndOverlay->SetHeight(60);
-    mEndOverlay->SetBackgroundColor(glm::vec4(255, 0, 0, 255));
+    mEndOverlay->SetBackgroundColor(glm::vec4(255, 0, 84, 255));
     mEndOverlay->SetPositionType(e3::EPositionType::Absolute);
     mEndOverlay->SetWidth("50%");
     mEndOverlay->SetOpacity(0);
@@ -84,12 +105,12 @@ void MediaEnignePower::AnimateEnding()
 
     }, [this](){
         mIcon->SetOpacity(0);
-        mTitleWrap->SetOpacity(0);
+        mPowerWrap->SetOpacity(0);
         mValueWrap->SetOpacity(0);
         e3::Animation* pA = new e3::Animation(this);
         pA->Start(0.2, 1, 0, [this](float v){
             mEndOverlay->SetScale(glm::vec3(v, 1, 1), e3::ETransformAlignment::Right);
-            mElement->SetBackgroundColor(glm::vec4(0, 0, 0, 100 * (v)));
+            mElement->SetBackgroundColor(glm::vec4(0, 0, 0, 150 * (v)));
         }, [](){
             
         });
@@ -98,10 +119,11 @@ void MediaEnignePower::AnimateEnding()
 
 void MediaEnignePower::AnimateValueText()
 {
+    mPower->SetOpacity(1);
     e3::Animation* pA = new e3::Animation(this);
-    pA->Start(0.4, 230, 241.0, [this](float v){
+    pA->Start(0.4, 190, 268, [this](float v){
         mValue->SetText(std::to_string(int(v)));
-
+        mPower->SetWidth((v - 190) * 1);
     }, [](){
             
     });
@@ -122,7 +144,7 @@ void MediaEnignePower::AnimateZoomOutValue()
 void MediaEnignePower::AnimateTitle()
 {
     e3::Animation* pA = new e3::Animation(this);
-    pA->Start(0.4, 0.0, 260.0, [this](float v){
+    pA->Start(0.4, 0.0, 240.0, [this](float v){
         mTitleWrap->SetWidth(v);
 
     }, [this](){

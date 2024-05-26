@@ -43,7 +43,7 @@ MediaAnimatedText::MediaAnimatedText(e3::Element* pParent)
 	mOverlay = new e3::Element();
 	mOverlay->SetWidth(400);
 	mOverlay->SetHeight("100%");
-	mOverlay->SetBackgroundColor(glm::vec4(255, 0, 0, 255));
+	mOverlay->SetBackgroundColor(glm::vec4(255, 0, 84, 255));
 	mOverlay->SetPositionType(e3::EPositionType::Absolute);
 	mOverlay->SetTop(0);
 

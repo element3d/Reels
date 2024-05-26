@@ -20,9 +20,9 @@ MediaCarCard::MediaCarCard(e3::Element* pParent)
 	e3::Element* pCarCard = new e3::Element();
 	pCarCard->SetWidth(135);
 	pCarCard->SetHeight(150);
-	pCarCard->SetBackgroundColor(glm::vec4(255, 0, 0, 255));
+	pCarCard->SetBackgroundColor(glm::vec4(255, 0, 84, 255));
 	mCardWrap->AddElement(pCarCard);
-	pCarCard->SetBackgroundImageAsset("RidersReels/img.jpg");
+	pCarCard->SetBackgroundImageAsset("RidersReels/img.jpeg");
 	pCarCard->SetBackgroundImageFit(e3::EBackgroundSize::Cover);
 	pCarCard->SetBorderSize(2);
 	pCarCard->SetBorderColor(glm::vec4(255));

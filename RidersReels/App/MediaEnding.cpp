@@ -25,15 +25,15 @@ MediaEnding::MediaEnding(e3::Element* pParent)
 	pElement->AddElement(pCard);
 
 	mBuyButtonWrap = new e3::Element();
-	mBuyButtonWrap->SetWidth(200);
-	mBuyButtonWrap->SetHeight(50);
+	mBuyButtonWrap->SetWidth(300);
+	mBuyButtonWrap->SetHeight(60);
 	mBuyButtonWrap->SetAlignItemsHor(e3::EAlignment::Start);
 	mBuyButtonWrap->SetOpacity(0);
 	pElement->AddElement(mBuyButtonWrap);
 
 	mBuyButton = new e3::Element();
-	mBuyButton->SetWidth(200);
-	mBuyButton->SetHeight(50);
+	mBuyButton->SetWidth(300);
+	mBuyButton->SetHeight(60);
 	mBuyButton->SetBackgroundColor(glm::vec4(195, 251, 18, 255));
 	mBuyButton->SetMarginTop(40);
 	mBuyButton->SetAlignItemsHor(e3::EAlignment::Start);
@@ -41,17 +41,17 @@ MediaEnding::MediaEnding(e3::Element* pParent)
 	mBuyButtonWrap->AddElement(mBuyButton);
 
 	mBuyButtonOverlay = new e3::Element();
-	mBuyButtonOverlay->SetWidth(200);
-	mBuyButtonOverlay->SetHeight(50);
+	mBuyButtonOverlay->SetWidth(300);
+	mBuyButtonOverlay->SetHeight(60);
 	mBuyButtonOverlay->SetPositionType(e3::EPositionType::Absolute);
 	mBuyButtonOverlay->SetBackgroundColor(glm::vec4(255));
 
 	e3::Text* pBuyNow = new e3::Text();
-	pBuyNow->SetText("14,000 USD");
+	pBuyNow->SetText("22,000 USD");
 	pBuyNow->SetTextColor(glm::vec4(0, 0, 0, 255));
 	pBuyNow->SetFontFamily("open sans");
-	pBuyNow->SetFontSize(26);
-	pBuyNow->SetMarginLeft(30);
+	pBuyNow->SetFontSize(40);
+	pBuyNow->SetMarginLeft(45);
 	pBuyNow->SetFontStyle(e3::EFontStyle::SemiBold);
 //	mBuyButton->SetVisibility(e3::EVisibility::Hidden);
 	mBuyButton->AddElement(pBuyNow);
@@ -63,7 +63,7 @@ MediaEnding::MediaEnding(e3::Element* pParent)
 	mGooglePlay->SetHeight(80);
 	mGooglePlay->SetPositionType(e3::EPositionType::Absolute);
 	mGooglePlay->SetLeft(180);
-	mGooglePlay->SetTop(280);
+	mGooglePlay->SetTop(260);
 	mGooglePlay->SetOpacity(0);
 	pElement->AddElement(mGooglePlay);
 
@@ -73,7 +73,7 @@ MediaEnding::MediaEnding(e3::Element* pParent)
 	mAppStore->SetHeight(80);
 	mAppStore->SetPositionType(e3::EPositionType::Absolute);
 	mAppStore->SetLeft(180);
-	mAppStore->SetTop(370);
+	mAppStore->SetTop(350);
 	mAppStore->SetOpacity(0);
 	pElement->AddElement(mAppStore);
 }
@@ -83,7 +83,7 @@ void MediaEnding::AnimateBuyButton()
 	mBuyButtonWrap->SetOpacity(1);
 	e3::Animation* pA = new e3::Animation(this);
 	pA->Start(1, [this](float v){
-		mBuyButton->SetWidth(200 * v);	
+		mBuyButton->SetWidth(300 * v);	
 		mBuyButtonOverlay->SetOpacity(1 - v);
 	}, [this](){
 	

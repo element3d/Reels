@@ -14,7 +14,7 @@ CarCard::CarCard(e3::Element* pParent)
 	mImage1 = new e3::Element();
 	mImage1->SetWidth("100%");
 	mImage1->SetHeight("100%");
-	mImage1->SetBackgroundImageAsset("RidersReels/img4.jpg");
+	mImage1->SetBackgroundImageAsset("RidersReels/img4.jpeg");
 	mImage1->SetBackgroundImageFit(e3::EBackgroundSize::Cover);
 	mImage1->SetBorderSize(2);
 	mImage1->SetBorderColor(glm::vec4(255));
@@ -23,7 +23,7 @@ CarCard::CarCard(e3::Element* pParent)
 	mImage2 = new e3::Element();
 	mImage2->SetWidth("100%");
 	mImage2->SetHeight("100%");
-	mImage2->SetBackgroundImageAsset("RidersReels/img3.jpg");
+	mImage2->SetBackgroundImageAsset("RidersReels/img3.jpeg");
 	mImage2->SetBorderSize(2);
 	mImage2->SetBorderColor(glm::vec4(255));
 	mImage2->SetPositionType(e3::EPositionType::Absolute);
@@ -44,7 +44,7 @@ CarCard::CarCard(e3::Element* pParent)
 	mImage3 = new e3::Element();
 	mImage3->SetWidth("100%");
 	mImage3->SetHeight("100%");
-	mImage3->SetBackgroundImageAsset("RidersReels/img2.jpg");
+	mImage3->SetBackgroundImageAsset("RidersReels/img2.jpeg");
 	mImage3->SetBorderSize(2);
 	mImage3->SetBorderColor(glm::vec4(255));
 	mImage3->SetPositionType(e3::EPositionType::Absolute);
@@ -57,7 +57,7 @@ CarCard::CarCard(e3::Element* pParent)
 	mCard = new e3::Element();
 	mCard->SetWidth("100%");
 	mCard->SetHeight("100%");
-	mCard->SetBackgroundImageAsset("RidersReels/img.jpg");
+	mCard->SetBackgroundImageAsset("RidersReels/img.jpeg");
 	mCard->SetBorderSize(2);
 	mCard->SetBorderColor(glm::vec4(255));
 	mCard->SetPositionType(e3::EPositionType::Absolute);
@@ -103,7 +103,7 @@ CarCard::CarCard(e3::Element* pParent)
 	pYearCont->AddElement(pYearContInner);
 
 	e3::Text* pYear = new e3::Text();
-	pYear->SetText("2012");
+	pYear->SetText("2010");
 	pYear->SetFontSize(17);
 	pYear->SetFontFamily("open sans");
 	pYear->SetFontStyle(e3::EFontStyle::SemiBold);
@@ -130,8 +130,8 @@ CarCard::CarCard(e3::Element* pParent)
 	mCard->AddElement(pModelCont);
 
 	e3::Text* pModel = new e3::Text();
-	pModel->SetText("W204 C250");
-	pModel->SetFontSize(18);
+	pModel->SetText("W212 E350");
+	pModel->SetFontSize(20);
 	pModel->SetFontFamily("open sans");
 	pModel->SetFontStyle(e3::EFontStyle::SemiBold);
 	pModel->SetTextColor(glm::vec4(0, 0, 0, 255));
@@ -150,7 +150,7 @@ CarCard::CarCard(e3::Element* pParent)
 
 	e3::Text* pMake = new e3::Text();
 	pMake->SetText("MERECEDES BENZ");
-	pMake->SetFontSize(18);
+	pMake->SetFontSize(20);
 	pMake->SetFontFamily("open sans");
 	pMake->SetFontStyle(e3::EFontStyle::SemiBold);
 	pMake->SetTextColor(glm::vec4(255));

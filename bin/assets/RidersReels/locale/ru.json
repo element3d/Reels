@@ -5,5 +5,13 @@
         "year": "ГОД",
 	"transmission": "ТРАНСМИССИЯ",
 	"location": "МЕСТО",
-	"power": "МОЩНОСТЬ"
+	"power": "МОЩНОСТЬ",
+	"drive_type": "ПРИВОД",
+	"body_type": "КУЗОВ",
+	"st_wheel": "РУЛЬ",
+	"automatic": "АВТОМАТ",
+	"lori": "ЛОРИ",
+	"rear_wheel_drive": "ЗАДНИЙ",
+	"sedan": "СЕДАН",
+	"left": "ЛЕВЫЙ"
 }

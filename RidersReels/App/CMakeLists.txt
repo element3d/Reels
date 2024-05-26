@@ -55,8 +55,8 @@ target_link_libraries(${PROJECT}
 	opencv_videoio490d
 	opencv_imgproc490d
 	opencv_imgcodecs490d
-
-
+	cpr
+	libcurl
 )
 
 if(ANDROID)

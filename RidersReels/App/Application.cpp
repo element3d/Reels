@@ -20,12 +20,33 @@
 #include "MediaEngine.h"
 #include <e3/i18n.h>
 #include <e3/AssetManager.h>
+#include <cpr/cpr.h>
+#include "DBCar.h"
 
 cv::VideoWriter* video;
 
 Application::Application(const std::string& applicationName, e3::EE3OS os, e3::EE3Target target, e3::Size2i windowSize, e3::Size2i resolution)
 	: ApplicationBase(applicationName, os, target, windowSize, resolution)
 {
+	std::string url = "http://riders.am/api/v1/car?car_id=" + std::to_string(909);
+
+	//std::string cacert = AuthManager::Get()->GetCACert();
+	cpr::Session session;
+	session.SetUrl(cpr::Url{ url });
+
+	// Specify the CA certificate path
+	cpr::SslOptions ssl_options;
+	//ssl_options.ca_info = cacert;
+	//session.SetSslOptions(ssl_options);
+	cpr::Response response = session.Get();
+
+	if (response.status_code != 200)
+	{
+		return;
+	}
+
+	DBCarsResponse r = DBCar::ParseCarsFromJson(response.text);
+
 	std::vector<std::string> images =
 	{
 		"RidersReels/img.jpeg",

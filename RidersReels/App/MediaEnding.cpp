@@ -47,7 +47,7 @@ MediaEnding::MediaEnding(e3::Element* pParent)
 	mBuyButtonOverlay->SetBackgroundColor(glm::vec4(255));
 
 	e3::Text* pBuyNow = new e3::Text();
-	pBuyNow->SetText("22,000 USD");
+	pBuyNow->SetText("17,500 USD");
 	pBuyNow->SetTextColor(glm::vec4(0, 0, 0, 255));
 	pBuyNow->SetFontFamily("open sans");
 	pBuyNow->SetFontSize(40);

@@ -19,14 +19,33 @@
 #include "MediaDwinLogo.h"
 #include "MediaEngine.h"
 #include <e3/i18n.h>
+#include <e3/AssetManager.h>
 
 cv::VideoWriter* video;
 
-Application::Application(const std::string& applicationName, e3::EE3OS os, e3::EE3Target target, e3::Size2i windowSize, e3::Size2i resolution) 
+Application::Application(const std::string& applicationName, e3::EE3OS os, e3::EE3Target target, e3::Size2i windowSize, e3::Size2i resolution)
 	: ApplicationBase(applicationName, os, target, windowSize, resolution)
 {
-	e3::i18n::Get()->SetLocale("ru");
+	std::vector<std::string> images =
+	{
+		"RidersReels/img.jpeg",
+		"RidersReels/img2.jpeg",
+		"RidersReels/img3.jpeg",
+		"RidersReels/img4.jpeg",
+		"RidersReels/img5.jpeg",
+		"RidersReels/img6.jpeg",
+		"RidersReels/img7.jpeg",
+		"RidersReels/img8.jpeg",
+	};
 
+	e3::i18n::Get()->SetLocale("ru");
+	bool isPortrait = false;
+	std::string imgPath = GetAssetManager()->GetAssetPath("RidersReels/img.jpeg");
+	cv::Mat testImg = cv::imread(imgPath);
+	if (testImg.size().width < testImg.size().height)
+	{
+		isPortrait = true;
+	}
 	e3::Typography::AddFont("facon", e3::EFontStyle::Normal, "RidersReels/fonts/facon.ttf");
 	e3::Typography::AddFont("open sans", e3::EFontStyle::Normal, "RidersReels/fonts/OpenSans-Regular.ttf");
 	e3::Typography::AddFont("open sans", e3::EFontStyle::Bold, "RidersReels/fonts/OpenSans-Bold.ttf");
@@ -35,14 +54,42 @@ Application::Application(const std::string& applicationName, e3::EE3OS os, e3::E
 	mMain = new e3::Element();
 	mMain->SetBackgroundColor(glm::vec4(7, 19, 45, 255));
 
+	int currentImage = 0;
+
 	FrameElement* pImage1Frame = new FrameElement();
 	pImage1Frame->SetDuration(4000);
-	e3::Element* pImage1 = new e3::Element();
-	pImage1->SetBackgroundImageAsset("RidersReels/img.jpeg");
-	pImage1->SetBackgroundImageFit(e3::EBackgroundSize::Cover);
 	pImage1Frame->SetBeginTime(0);
 	pImage1Frame->SetLayer(0);
-	pImage1Frame->SetElement(pImage1, EFrameElementType::Image);
+
+	e3::Element* pImage1 = new e3::Element();
+	pImage1->SetBackgroundImageAsset(images[currentImage++]);
+	pImage1->SetBackgroundImageFit(e3::EBackgroundSize::Cover);
+
+	if (isPortrait)
+	{
+		pImage1->SetWidth("50%");
+		e3::Element* pImageWrap = new e3::Element();
+		pImageWrap->AddElement(pImage1);
+
+		e3::Element* pDiv = new e3::Element();
+		pDiv->SetWidth(4);
+		pDiv->SetHeight(1000);
+		pDiv->SetBackgroundColor(glm::vec4(255));
+		pImageWrap->AddElement(pDiv);
+
+		e3::Element* pNewImage1 = new e3::Element();
+		pNewImage1->SetBackgroundImageAsset(images[currentImage++]);
+		pNewImage1->SetBackgroundImageFit(e3::EBackgroundSize::Cover);
+		pNewImage1->SetWidth("50%");
+
+		pImageWrap->AddElement(pNewImage1);
+
+		pImage1Frame->SetElement(pImageWrap, EFrameElementType::Image);
+	}
+	else 
+	{
+		pImage1Frame->SetElement(pImage1, EFrameElementType::Image);
+	}
 	mFrameElementPushMap[0].push_back(pImage1Frame);
 	/*TransitionZoomOut* pTransition1 = new TransitionZoomOut(1.2, 1.1, 0.05);
 	pImage1Frame->SetBeginTransition(pTransition1);*/
@@ -53,17 +100,41 @@ Application::Application(const std::string& applicationName, e3::EE3OS os, e3::E
 	pImage1Frame->AddEffect(pEffectZoomOut12);
 	EffectZoomOut* pEffectZoomOut13 = new EffectZoomOut(1.04, 1.0, 2100, 2);
 	pImage1Frame->AddEffect(pEffectZoomOut13);
-	EffectRotation* pEffectRotation1 = new EffectRotation(8, 5, 0, 4);
+	EffectRotation* pEffectRotation1 = new EffectRotation(5, 0, 0, 4);
 	pImage1Frame->AddEffect(pEffectRotation1);
 
 	FrameElement* pImage2Frame = new FrameElement();
 	pImage2Frame->SetDuration(4000);
 	e3::Element* pImage2 = new e3::Element();
-	pImage2->SetBackgroundImageAsset("RidersReels/img2.jpeg");
-	pImage2->SetBackgroundImageFit(e3::EBackgroundSize::Cover);
 	pImage2Frame->SetBeginTime(4000);
 	pImage2Frame->SetLayer(0);
-	pImage2Frame->SetElement(pImage2, EFrameElementType::Image);
+	pImage2->SetBackgroundImageAsset(images[currentImage++]);
+	pImage2->SetBackgroundImageFit(e3::EBackgroundSize::Cover);
+	if (isPortrait) 
+	{
+		pImage2->SetWidth("50%");
+		e3::Element* pImageWrap = new e3::Element();
+		pImageWrap->AddElement(pImage2);
+
+		e3::Element* pDiv = new e3::Element();
+		pDiv->SetWidth(4);
+		pDiv->SetHeight(1000);
+		pDiv->SetBackgroundColor(glm::vec4(255));
+		pImageWrap->AddElement(pDiv);
+
+		e3::Element* pNewImage2 = new e3::Element();
+		pNewImage2->SetBackgroundImageAsset(images[currentImage++]);
+		pNewImage2->SetBackgroundImageFit(e3::EBackgroundSize::Cover);
+		pNewImage2->SetWidth("50%");
+
+		pImageWrap->AddElement(pNewImage2);
+
+		pImage2Frame->SetElement(pImageWrap, EFrameElementType::Image);
+	}
+	else
+	{
+		pImage2Frame->SetElement(pImage2, EFrameElementType::Image);
+	}
 	mFrameElementPushMap[4000].push_back(pImage2Frame);
 	TransitionZoomOut* pTransition2 = new TransitionZoomOut(1.2, 1.1, 0.1);
 	pImage2Frame->SetBeginTransition(pTransition2);
@@ -75,11 +146,37 @@ Application::Application(const std::string& applicationName, e3::EE3OS os, e3::E
 	FrameElement* pImage3Frame = new FrameElement();
 	pImage3Frame->SetDuration(3500);
 	e3::Element* pImage3 = new e3::Element();
-	pImage3->SetBackgroundImageAsset("RidersReels/img3.jpeg");
+	pImage3->SetBackgroundImageAsset(images[currentImage++]);
 	pImage3->SetBackgroundImageFit(e3::EBackgroundSize::Cover);
 	pImage3Frame->SetBeginTime(8000);
 	pImage3Frame->SetLayer(0);
-	pImage3Frame->SetElement(pImage3, EFrameElementType::Image);
+
+	if (isPortrait)
+	{
+		pImage3->SetWidth("50%");
+		e3::Element* pImageWrap = new e3::Element();
+		pImageWrap->AddElement(pImage3);
+
+		e3::Element* pDiv = new e3::Element();
+		pDiv->SetWidth(4);
+		pDiv->SetHeight(1000);
+		pDiv->SetBackgroundColor(glm::vec4(255));
+		pImageWrap->AddElement(pDiv);
+
+		e3::Element* pNewImage3 = new e3::Element();
+		pNewImage3->SetBackgroundImageAsset(images[currentImage++]);
+		pNewImage3->SetBackgroundImageFit(e3::EBackgroundSize::Cover);
+		pNewImage3->SetWidth("50%");
+
+		pImageWrap->AddElement(pNewImage3);
+
+		pImage3Frame->SetElement(pImageWrap, EFrameElementType::Image);
+	}
+	else
+	{
+		pImage3Frame->SetElement(pImage3, EFrameElementType::Image);
+	}
+
 	mFrameElementPushMap[8000].push_back(pImage3Frame);
 	TransitionZoomOut* pTransition3 = new TransitionZoomOut(1.2, 1.1, 0.1);
 	pImage3Frame->SetBeginTransition(pTransition3);
@@ -91,11 +188,37 @@ Application::Application(const std::string& applicationName, e3::EE3OS os, e3::E
 	FrameElement* pImage4Frame = new FrameElement();
 	pImage4Frame->SetDuration(3300);
 	e3::Element* pImage4 = new e3::Element();
-	pImage4->SetBackgroundImageAsset("RidersReels/img4.jpeg");
+	pImage4->SetBackgroundImageAsset(images[currentImage++]);
 	pImage4->SetBackgroundImageFit(e3::EBackgroundSize::Cover);
 	pImage4Frame->SetBeginTime(11500);
 	pImage4Frame->SetLayer(0);
-	pImage4Frame->SetElement(pImage4, EFrameElementType::Image);
+	
+	if (isPortrait)
+	{
+		pImage4->SetWidth("50%");
+		e3::Element* pImageWrap = new e3::Element();
+		pImageWrap->AddElement(pImage4);
+
+		e3::Element* pDiv = new e3::Element();
+		pDiv->SetWidth(4);
+		pDiv->SetHeight(1000);
+		pDiv->SetBackgroundColor(glm::vec4(255));
+		pImageWrap->AddElement(pDiv);
+
+		e3::Element* pNewImage4 = new e3::Element();
+		pNewImage4->SetBackgroundImageAsset(images[currentImage++]);
+		pNewImage4->SetBackgroundImageFit(e3::EBackgroundSize::Cover);
+		pNewImage4->SetWidth("50%");
+
+		pImageWrap->AddElement(pNewImage4);
+
+		pImage4Frame->SetElement(pImageWrap, EFrameElementType::Image);
+	}
+	else
+	{
+		pImage4Frame->SetElement(pImage4, EFrameElementType::Image);
+	}
+
 	mFrameElementPushMap[11500].push_back(pImage4Frame);
 	TransitionZoomOut* pTransition4 = new TransitionZoomOut(1.2, 1.1, 0.1);
 	pImage4Frame->SetBeginTransition(pTransition4);
@@ -172,13 +295,13 @@ Application::Application(const std::string& applicationName, e3::EE3OS os, e3::E
 	mMediaCarCard->SetBeginTime(4000);
 	mFrameElementPushMap[4000].push_back(mMediaCarCard);
 
-	mMakeMedia = new MediaAnimatedText2(220, 70, "MERCEDES BENZ");
+	mMakeMedia = new MediaAnimatedText2(220, 70, "JEEP");
 	mMakeMedia->SetDuration(3900);
 	mMakeMedia->SetLayer(3);
 	mMakeMedia->SetBeginTime(4100);
 	mFrameElementPushMap[4100].push_back(mMakeMedia);
 
-	mModelMedia = new MediaAnimatedText2(220, 110, "W212 E350");
+	mModelMedia = new MediaAnimatedText2(220, 110, "COMPASS 2.4");
 	mModelMedia->SetDuration(3800);
 	mModelMedia->SetLayer(4);
 	mModelMedia->SetBeginTime(4200);
@@ -346,7 +469,9 @@ void Application::Render()
 
 
 	e3::Application::Render();
-	// return;
+	mFirstFrame = false;
+
+	return;
 	if (time > 22000)  {
 
 		video->release();

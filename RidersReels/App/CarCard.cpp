@@ -103,7 +103,7 @@ CarCard::CarCard(e3::Element* pParent)
 	pYearCont->AddElement(pYearContInner);
 
 	e3::Text* pYear = new e3::Text();
-	pYear->SetText("2010");
+	pYear->SetText("2019");
 	pYear->SetFontSize(17);
 	pYear->SetFontFamily("open sans");
 	pYear->SetFontStyle(e3::EFontStyle::SemiBold);
@@ -130,7 +130,7 @@ CarCard::CarCard(e3::Element* pParent)
 	mCard->AddElement(pModelCont);
 
 	e3::Text* pModel = new e3::Text();
-	pModel->SetText("W212 E350");
+	pModel->SetText("COMPASS 2.4");
 	pModel->SetFontSize(20);
 	pModel->SetFontFamily("open sans");
 	pModel->SetFontStyle(e3::EFontStyle::SemiBold);
@@ -149,7 +149,7 @@ CarCard::CarCard(e3::Element* pParent)
 	mCard->AddElement(pMakeCont);
 
 	e3::Text* pMake = new e3::Text();
-	pMake->SetText("MERECEDES BENZ");
+	pMake->SetText("JEEP");
 	pMake->SetFontSize(20);
 	pMake->SetFontFamily("open sans");
 	pMake->SetFontStyle(e3::EFontStyle::SemiBold);

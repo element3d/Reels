@@ -40,7 +40,7 @@ UserPanel::UserPanel(e3::Element* pParent)
 	AddElement(mNameWrap);
 
 	mName = new e3::Text();
-	mName->SetText("SERYOZHA");
+	mName->SetText("NAREK");
 	mName->SetTextColor(glm::vec4(255));
 	mName->SetFontFamily("open sans");
 	mName->SetFontSize(30);
@@ -81,7 +81,7 @@ UserPanel::UserPanel(e3::Element* pParent)
 	mPhoneCont->AddElement(pPhoneIcon);
 
 	e3::Text* pPhone = new e3::Text();
-	pPhone->SetText("098 445878");
+	pPhone->SetText("098 828482");
 	pPhone->SetFontFamily("open sans");
 	pPhone->SetFontSize(28);
 	pPhone->SetFontStyle(e3::EFontStyle::SemiBold);

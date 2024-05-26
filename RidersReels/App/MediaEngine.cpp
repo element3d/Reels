@@ -45,7 +45,7 @@ MediaEngine::MediaEngine(e3::Element* pParent)
 
     mValue = new e3::Text();
     mValue->SetWidth(250);
-    mValue->SetText("3.5L, V6");
+    mValue->SetText("2.4L, L4");
     mValue->SetFontSize(30);
     mValue->SetTextColor(glm::vec4(0, 0, 0, 255));
     mValue->SetFontFamily("open sans");

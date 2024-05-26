@@ -51,13 +51,13 @@ void MediaCarInfoPanel::Render()
 	if (!mMileageAdded && diff >= 200) 
 	{
 		mMileageAdded = true;
-		CarInfoItem* pMileage = new CarInfoItem("mileage", "115.000 KM", "E906");
+		CarInfoItem* pMileage = new CarInfoItem("mileage", "60.000 KM", "E906");
 		mFrame->AddElement(pMileage);
 	}
 	if (!mYearAdded && diff >= 250) 
 	{
 		mYearAdded = true;
-		CarInfoItem* pYear = new CarInfoItem("year", "2010", "E900");
+		CarInfoItem* pYear = new CarInfoItem("year", "2019", "E900");
 		mFrame->AddElement(pYear);
 	}
 	if (!mTransmissionAdded && diff >= 300) 
@@ -75,13 +75,13 @@ void MediaCarInfoPanel::Render()
 	if (!mDriveTypeAdded && diff >= 400) 
 	{
 		mDriveTypeAdded = true;
-		CarInfoItem* pDriveType = new CarInfoItem("drive_type", "rear_wheel_drive", "E90C");
+		CarInfoItem* pDriveType = new CarInfoItem("drive_type", "all_wheel_drive", "E90C");
 		mFrame->AddElement(pDriveType);
 	}
 	if (!mBodyTypeAdded && diff >= 450) 
 	{
 		mBodyTypeAdded = true;
-		CarInfoItem* pBodyType = new CarInfoItem("body_type", "sedan", "E90D");
+		CarInfoItem* pBodyType = new CarInfoItem("body_type", "suv", "E90D");
 		mFrame->AddElement(pBodyType);
 	}
 	if (!mStWheelAdded && diff >= 500) 

@@ -57,6 +57,7 @@ target_link_libraries(${PROJECT}
 	opencv_imgcodecs490d
 	cpr
 	libcurl
+	sdl2d
 )
 
 if(ANDROID)

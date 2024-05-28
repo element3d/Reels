@@ -22,8 +22,76 @@
 #include <e3/AssetManager.h>
 #include "DBCar.h"
 #include "DataManager.h"
+#include <SDL2/SDL.h>
 
 cv::VideoWriter* video;
+
+void playAudioFromOffset(const char* file, int offsetSeconds) {
+	SDL_AudioSpec wavSpec;
+	Uint32 wavLength;
+	Uint8* wavBuffer;
+
+
+	if (SDL_Init(SDL_INIT_AUDIO) != 0) {
+		std::cerr << "SDL_Init Error: " << SDL_GetError() << std::endl;
+		return;
+	}
+
+	if (SDL_LoadWAV(file, &wavSpec, &wavBuffer, &wavLength) == NULL) {
+		std::cerr << "Failed to load WAV file! SDL Error: " << SDL_GetError() << std::endl;
+		return;
+	}
+
+	// Calculate the byte offset to start from
+	// Assuming the audio format is PCM with 16 bit per sample (2 bytes per sample)
+	int bytesPerSample = wavSpec.channels * (SDL_AUDIO_BITSIZE(wavSpec.format) / 8);
+	Uint32 offsetBytes = offsetSeconds * wavSpec.freq * bytesPerSample;
+
+	if (offsetBytes >= wavLength) {
+		std::cerr << "Offset is beyond the length of the audio file." << std::endl;
+		SDL_FreeWAV(wavBuffer);
+		return;
+	}
+
+	SDL_AudioDeviceID deviceId = SDL_OpenAudioDevice(NULL, 0, &wavSpec, NULL, 0);
+	if (deviceId == 0) {
+		std::cerr << "Failed to open audio device! SDL Error: " << SDL_GetError() << std::endl;
+		SDL_FreeWAV(wavBuffer);
+		return;
+	}
+
+	// Queue only the part of the audio starting from the calculated offset
+	SDL_QueueAudio(deviceId, wavBuffer + offsetBytes, wavLength - offsetBytes);
+	SDL_PauseAudioDevice(deviceId, 0); // Start playing
+
+
+}
+
+void playAudio1(const char* file) {
+	SDL_AudioSpec wavSpec;
+	Uint32 wavLength;
+	Uint8* wavBuffer;
+
+	if (SDL_Init(SDL_INIT_AUDIO) != 0) {
+		std::cerr << "SDL_Init Error: " << SDL_GetError() << std::endl;
+		return;
+	}
+
+	if (SDL_LoadWAV(file, &wavSpec, &wavBuffer, &wavLength) == NULL) {
+		std::cerr << "Failed to load WAV file! SDL Error: " << SDL_GetError() << std::endl;
+		return;
+	}
+
+	SDL_AudioDeviceID deviceId = SDL_OpenAudioDevice(NULL, 0, &wavSpec, NULL, 0);
+	if (deviceId == 0) {
+		std::cerr << "Failed to open audio device! SDL Error: " << SDL_GetError() << std::endl;
+		SDL_FreeWAV(wavBuffer);
+		return;
+	}
+
+	SDL_QueueAudio(deviceId, wavBuffer, wavLength);
+	SDL_PauseAudioDevice(deviceId, 0); // Start playing
+}
 
 Application::Application(const std::string& applicationName, e3::EE3OS os, e3::EE3Target target, e3::Size2i windowSize, e3::Size2i resolution)
 	: ApplicationBase(applicationName, os, target, windowSize, resolution)
@@ -389,7 +457,7 @@ void Application::Render()
 	{
 		// mFirstFrame = false;
 		Timeline::Get()->Begin();
-
+		playAudioFromOffset("riders.wav", 50);
 	}
 	Timeline::Get()->OnFrame();
 	long time = Timeline::Get()->GetTime();

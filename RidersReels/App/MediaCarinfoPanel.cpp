@@ -1,6 +1,30 @@
 #include "MediaCarinfoPanel.h"
 #include "CarInfoItem.h"
 #include "Timeline.h"
+#include "DataManager.h"
+
+#include <iostream>
+#include <iomanip>
+#include <sstream>
+#include <locale>
+
+struct with_dot : std::numpunct<char> {
+protected:
+	char do_thousands_sep() const override {
+		return '.';  // Separator for thousands
+	}
+
+	std::string do_grouping() const override {
+		return "\3";  // Groups of three digits
+	}
+};
+
+std::string formatMileage(int mileage) {
+	std::ostringstream oss;
+	oss.imbue(std::locale(oss.getloc(), new with_dot));
+	oss << mileage;
+	return oss.str();
+}
 
 MediaCarInfoPanel::MediaCarInfoPanel(e3::Element* pParent) 
 	: FrameElement(pParent)
@@ -48,16 +72,18 @@ void MediaCarInfoPanel::Render()
 	double time = Timeline::Get()->GetTime();
 	double diff = time - mBeginTime;
 
+	DBCar* pCar = DataManager::Get()->GetCar();
 	if (!mMileageAdded && diff >= 200) 
 	{
 		mMileageAdded = true;
-		CarInfoItem* pMileage = new CarInfoItem("mileage", "60.000 KM", "E906");
+		std::string mileage = formatMileage(pCar->Mileage) + " KM";
+		CarInfoItem* pMileage = new CarInfoItem("mileage", mileage, "E906");
 		mFrame->AddElement(pMileage);
 	}
 	if (!mYearAdded && diff >= 250) 
 	{
 		mYearAdded = true;
-		CarInfoItem* pYear = new CarInfoItem("year", "2019", "E900");
+		CarInfoItem* pYear = new CarInfoItem("year", std::to_string(pCar->Year), "E900");
 		mFrame->AddElement(pYear);
 	}
 	if (!mTransmissionAdded && diff >= 300) 
@@ -87,7 +113,7 @@ void MediaCarInfoPanel::Render()
 	if (!mStWheelAdded && diff >= 500) 
 	{
 		mStWheelAdded = true;
-		CarInfoItem* pStWheel = new CarInfoItem("st_wheel", "left", "E901");
+		CarInfoItem* pStWheel = new CarInfoItem("st_wheel", pCar->StearingWheel == 0 ? "left" : "right", "E901");
 		mFrame->AddElement(pStWheel);
 	}
 

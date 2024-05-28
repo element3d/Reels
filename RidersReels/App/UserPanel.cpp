@@ -1,5 +1,6 @@
 #include "UserPanel.h"
 #include <e3/FontIcon.h>
+#include "DataManager.h"
 
 UserPanel::UserPanel(e3::Element* pParent) 
 	: e3::Element(pParent)
@@ -40,7 +41,7 @@ UserPanel::UserPanel(e3::Element* pParent)
 	AddElement(mNameWrap);
 
 	mName = new e3::Text();
-	mName->SetText("NAREK");
+	mName->SetText(DataManager::Get()->GetName());
 	mName->SetTextColor(glm::vec4(255));
 	mName->SetFontFamily("open sans");
 	mName->SetFontSize(30);
@@ -81,7 +82,7 @@ UserPanel::UserPanel(e3::Element* pParent)
 	mPhoneCont->AddElement(pPhoneIcon);
 
 	e3::Text* pPhone = new e3::Text();
-	pPhone->SetText("098 828482");
+	pPhone->SetText(DataManager::Get()->GetPhone());
 	pPhone->SetFontFamily("open sans");
 	pPhone->SetFontSize(28);
 	pPhone->SetFontStyle(e3::EFontStyle::SemiBold);

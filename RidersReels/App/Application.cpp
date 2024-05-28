@@ -20,32 +20,17 @@
 #include "MediaEngine.h"
 #include <e3/i18n.h>
 #include <e3/AssetManager.h>
-#include <cpr/cpr.h>
 #include "DBCar.h"
+#include "DataManager.h"
 
 cv::VideoWriter* video;
 
 Application::Application(const std::string& applicationName, e3::EE3OS os, e3::EE3Target target, e3::Size2i windowSize, e3::Size2i resolution)
 	: ApplicationBase(applicationName, os, target, windowSize, resolution)
 {
-	std::string url = "http://riders.am/api/v1/car?car_id=" + std::to_string(909);
+	
+	DBCar* pCar = DataManager::Get()->GetCar(1157);
 
-	//std::string cacert = AuthManager::Get()->GetCACert();
-	cpr::Session session;
-	session.SetUrl(cpr::Url{ url });
-
-	// Specify the CA certificate path
-	cpr::SslOptions ssl_options;
-	//ssl_options.ca_info = cacert;
-	//session.SetSslOptions(ssl_options);
-	cpr::Response response = session.Get();
-
-	if (response.status_code != 200)
-	{
-		return;
-	}
-
-	DBCarsResponse r = DBCar::ParseCarsFromJson(response.text);
 
 	std::vector<std::string> images =
 	{
@@ -316,13 +301,13 @@ Application::Application(const std::string& applicationName, e3::EE3OS os, e3::E
 	mMediaCarCard->SetBeginTime(4000);
 	mFrameElementPushMap[4000].push_back(mMediaCarCard);
 
-	mMakeMedia = new MediaAnimatedText2(220, 70, "JEEP");
+	mMakeMedia = new MediaAnimatedText2(220, 70, DataManager::Get()->GetMake());
 	mMakeMedia->SetDuration(3900);
 	mMakeMedia->SetLayer(3);
 	mMakeMedia->SetBeginTime(4100);
 	mFrameElementPushMap[4100].push_back(mMakeMedia);
 
-	mModelMedia = new MediaAnimatedText2(220, 110, "COMPASS 2.4");
+	mModelMedia = new MediaAnimatedText2(220, 110, DataManager::Get()->GetEngine());
 	mModelMedia->SetDuration(3800);
 	mModelMedia->SetLayer(4);
 	mModelMedia->SetBeginTime(4200);

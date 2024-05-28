@@ -1,4 +1,5 @@
 #include "MediaEngine.h"
+#include "DataManager.h"
 
 MediaEngine::MediaEngine(e3::Element* pParent)
 	: FrameElement(pParent)
@@ -45,7 +46,7 @@ MediaEngine::MediaEngine(e3::Element* pParent)
 
     mValue = new e3::Text();
     mValue->SetWidth(250);
-    mValue->SetText("2.4L, L4");
+    mValue->SetText(DataManager::Get()->GetCyl());
     mValue->SetFontSize(30);
     mValue->SetTextColor(glm::vec4(0, 0, 0, 255));
     mValue->SetFontFamily("open sans");

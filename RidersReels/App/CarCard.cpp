@@ -1,5 +1,6 @@
 #include "CarCard.h"
 #include <e3/Text.h>
+#include "DataManager.h"
 
 #define CARD_SPEED 180
 
@@ -103,7 +104,7 @@ CarCard::CarCard(e3::Element* pParent)
 	pYearCont->AddElement(pYearContInner);
 
 	e3::Text* pYear = new e3::Text();
-	pYear->SetText("2019");
+	pYear->SetText(std::to_string(DataManager::Get()->GetCar()->Year));
 	pYear->SetFontSize(17);
 	pYear->SetFontFamily("open sans");
 	pYear->SetFontStyle(e3::EFontStyle::SemiBold);
@@ -130,7 +131,7 @@ CarCard::CarCard(e3::Element* pParent)
 	mCard->AddElement(pModelCont);
 
 	e3::Text* pModel = new e3::Text();
-	pModel->SetText("COMPASS 2.4");
+	pModel->SetText(DataManager::Get()->GetEngine());
 	pModel->SetFontSize(20);
 	pModel->SetFontFamily("open sans");
 	pModel->SetFontStyle(e3::EFontStyle::SemiBold);
@@ -149,7 +150,7 @@ CarCard::CarCard(e3::Element* pParent)
 	mCard->AddElement(pMakeCont);
 
 	e3::Text* pMake = new e3::Text();
-	pMake->SetText("JEEP");
+	pMake->SetText(DataManager::Get()->GetMake());
 	pMake->SetFontSize(20);
 	pMake->SetFontFamily("open sans");
 	pMake->SetFontStyle(e3::EFontStyle::SemiBold);

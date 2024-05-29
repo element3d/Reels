@@ -39,15 +39,19 @@ MediaEngine::MediaEngine(e3::Element* pParent)
     mValueWrap->SetBackgroundColor(glm::vec4(255));
     // mValueWrap->SetWidth(100);
     mValueWrap->SetHeight(40);
+      mValueWrap->SetPaddingLeft(10);
+    mValueWrap->SetPaddingRight(10);
     // mValueWrap->SetWidth(0);
    // mValueWrap->SetOverflow(e3::EOverflow::Hidden);
     mValueWrap->SetMarginLeft(30);
     pElement->AddElement(mValueWrap);
 
     mValue = new e3::Text();
-    mValue->SetWidth(250);
+ //   mValue->SetWidth(250);
     mValue->SetText(DataManager::Get()->GetCyl());
     mValue->SetFontSize(30);
+    mValue->SetPaddingLeft(10);
+    mValue->SetPaddingRight(10);
     mValue->SetTextColor(glm::vec4(0, 0, 0, 255));
     mValue->SetFontFamily("open sans");
     mValue->SetFontStyle(e3::EFontStyle::SemiBold);

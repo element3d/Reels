@@ -97,7 +97,7 @@ Application::Application(const std::string& applicationName, e3::EE3OS os, e3::E
 	: ApplicationBase(applicationName, os, target, windowSize, resolution)
 {
 	
-	DBCar* pCar = DataManager::Get()->GetCar(1157);
+	DBCar* pCar = DataManager::Get()->GetCar(1138);
 
 
 	std::vector<std::string> images =
@@ -120,6 +120,8 @@ Application::Application(const std::string& applicationName, e3::EE3OS os, e3::E
 	{
 		isPortrait = true;
 	}
+	//		isPortrait = true;
+
 	e3::Typography::AddFont("facon", e3::EFontStyle::Normal, "RidersReels/fonts/facon.ttf");
 	e3::Typography::AddFont("open sans", e3::EFontStyle::Normal, "RidersReels/fonts/OpenSans-Regular.ttf");
 	e3::Typography::AddFont("open sans", e3::EFontStyle::Bold, "RidersReels/fonts/OpenSans-Bold.ttf");
@@ -136,12 +138,13 @@ Application::Application(const std::string& applicationName, e3::EE3OS os, e3::E
 	pImage1Frame->SetLayer(0);
 
 	e3::Element* pImage1 = new e3::Element();
+	pImage1->SetWidth("100%");
 	pImage1->SetBackgroundImageAsset(images[currentImage++]);
 	pImage1->SetBackgroundImageFit(e3::EBackgroundSize::Cover);
 
 	if (isPortrait)
 	{
-		pImage1->SetWidth("50%");
+		pImage1->SetWidth("55%");
 		e3::Element* pImageWrap = new e3::Element();
 		pImageWrap->AddElement(pImage1);
 
@@ -154,7 +157,7 @@ Application::Application(const std::string& applicationName, e3::EE3OS os, e3::E
 		e3::Element* pNewImage1 = new e3::Element();
 		pNewImage1->SetBackgroundImageAsset(images[currentImage++]);
 		pNewImage1->SetBackgroundImageFit(e3::EBackgroundSize::Cover);
-		pNewImage1->SetWidth("50%");
+		pNewImage1->SetWidth("55%");
 
 		pImageWrap->AddElement(pNewImage1);
 
@@ -174,7 +177,7 @@ Application::Application(const std::string& applicationName, e3::EE3OS os, e3::E
 	pImage1Frame->AddEffect(pEffectZoomOut12);
 	EffectZoomOut* pEffectZoomOut13 = new EffectZoomOut(1.04, 1.0, 2100, 2);
 	pImage1Frame->AddEffect(pEffectZoomOut13);
-	EffectRotation* pEffectRotation1 = new EffectRotation(5, 0, 0, 4);
+	EffectRotation* pEffectRotation1 = new EffectRotation(4, 1, 0, 4);
 	pImage1Frame->AddEffect(pEffectRotation1);
 
 	FrameElement* pImage2Frame = new FrameElement();
@@ -184,6 +187,7 @@ Application::Application(const std::string& applicationName, e3::EE3OS os, e3::E
 	pImage2Frame->SetLayer(0);
 	pImage2->SetBackgroundImageAsset(images[currentImage++]);
 	pImage2->SetBackgroundImageFit(e3::EBackgroundSize::Cover);
+	pImage2->SetWidth("100%");
 	if (isPortrait) 
 	{
 		pImage2->SetWidth("50%");
@@ -214,7 +218,7 @@ Application::Application(const std::string& applicationName, e3::EE3OS os, e3::E
 	pImage2Frame->SetBeginTransition(pTransition2);
 	EffectZoomOut* pEffectZoomOut2 = new EffectZoomOut(1.1, 1.0,4100, 4);
 	pImage2Frame->AddEffect(pEffectZoomOut2);
-	EffectRotation* pEffectRotation2 = new EffectRotation(8, 5, 4000, 4);
+	EffectRotation* pEffectRotation2 = new EffectRotation(4, 1, 4000, 4);
 	pImage2Frame->AddEffect(pEffectRotation2);
 
 	FrameElement* pImage3Frame = new FrameElement();
@@ -222,6 +226,7 @@ Application::Application(const std::string& applicationName, e3::EE3OS os, e3::E
 	e3::Element* pImage3 = new e3::Element();
 	pImage3->SetBackgroundImageAsset(images[currentImage++]);
 	pImage3->SetBackgroundImageFit(e3::EBackgroundSize::Cover);
+	pImage3->SetWidth("100%");
 	pImage3Frame->SetBeginTime(8000);
 	pImage3Frame->SetLayer(0);
 
@@ -256,7 +261,7 @@ Application::Application(const std::string& applicationName, e3::EE3OS os, e3::E
 	pImage3Frame->SetBeginTransition(pTransition3);
 	EffectZoomOut* pEffectZoomOut3 = new EffectZoomOut(1.1, 1.0, 8100, 4);
 	pImage3Frame->AddEffect(pEffectZoomOut3);
-	EffectRotation* pEffectRotation3 = new EffectRotation(5, 2, 8000, 4);
+	EffectRotation* pEffectRotation3 = new EffectRotation(4, 1, 8000, 4);
 	pImage3Frame->AddEffect(pEffectRotation3);
 
 	FrameElement* pImage4Frame = new FrameElement();
@@ -264,6 +269,7 @@ Application::Application(const std::string& applicationName, e3::EE3OS os, e3::E
 	e3::Element* pImage4 = new e3::Element();
 	pImage4->SetBackgroundImageAsset(images[currentImage++]);
 	pImage4->SetBackgroundImageFit(e3::EBackgroundSize::Cover);
+	pImage4->SetWidth("100%");
 	pImage4Frame->SetBeginTime(11500);
 	pImage4Frame->SetLayer(0);
 	
@@ -298,7 +304,7 @@ Application::Application(const std::string& applicationName, e3::EE3OS os, e3::E
 	pImage4Frame->SetBeginTransition(pTransition4);
 	EffectZoomOut* pEffectZoomOut4 = new EffectZoomOut(1.1, 1.0, 11600, 4);
 	pImage4Frame->AddEffect(pEffectZoomOut4);
-	EffectRotation* pEffectRotation4 = new EffectRotation(5, 2, 11500, 4);
+	EffectRotation* pEffectRotation4 = new EffectRotation(4, 1, 11500, 4);
 	pImage4Frame->AddEffect(pEffectRotation4);
 
 	FrameElement* pImage5Frame = new FrameElement();
@@ -313,8 +319,8 @@ Application::Application(const std::string& applicationName, e3::EE3OS os, e3::E
 	pImage5Frame->SetBeginTransition(pTransition5);
 	EffectZoomOut* pEffectZoomOut5 = new EffectZoomOut(1.1, 1.0, 16100, 4);
 	pImage5Frame->AddEffect(pEffectZoomOut5);
-	/*EffectRotation* pEffectRotation5 = new EffectRotation(5, 2, 16000, 4);
-	pImage5Frame->AddEffect(pEffectRotation5);*/
+	//EffectRotation* pEffectRotation5 = new EffectRotation(4, 1, 16000, 4);
+	//pImage5Frame->AddEffect(pEffectRotation5);
 
 	FrameElement* pRidersTitleOverlayFrame = new FrameElement();
 	pRidersTitleOverlayFrame->SetDuration(2000);
@@ -335,7 +341,7 @@ Application::Application(const std::string& applicationName, e3::EE3OS os, e3::E
 	pRidersFrame->SetDuration(2000);
 	e3::Text* t = new e3::Text();
 	t->SetPositionType(e3::EPositionType::Absolute);
-	t->SetTop(200);
+	t->SetTop(240);
 	t->SetMarginLeft(50);
 	//t->SetRotation(-10, glm::vec3(0, 1, 0), e3::ETransformAlignment::Center);
 	t->SetText("RIDERS");
@@ -543,9 +549,9 @@ void Application::Render()
 
 
 	e3::Application::Render();
-	mFirstFrame = false;
+	//mFirstFrame = false;
 
-	return;
+	//return;
 	if (time > 22000)  {
 
 		video->release();

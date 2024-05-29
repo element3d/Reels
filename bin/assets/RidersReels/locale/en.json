@@ -11,7 +11,13 @@
 	"st_wheel": "ST WHEEL",
 	"automatic": "AUTOMATIC",
 	"lori": "LORI",
+	"erevan": "EREVAN",
+	"kotayk": "KOTAYK",
+	"shirak": "SHIRAK",
 	"rear_wheel_drive": "REAR WHEEL DRIVE",
+	"all_wheel_drive": "ALL WHEEL DRIVE",
+	"front_wheel_drive": "FRONT WHEEL DRIVE",
 	"sedan": "SEDAN",
+	"suv": "SUV",
 	"left": "LEFT"
 }

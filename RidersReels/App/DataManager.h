@@ -13,6 +13,8 @@ public:
 	std::string GetMake();
 	std::string GetEngine();
 	std::string GetCyl();
+	std::string GetPrice();
+	std::string GetMileage();
 	int GetPower();
 
 private:

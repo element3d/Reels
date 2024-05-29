@@ -3,6 +3,24 @@
 
 DataManager* DataManager::sInstance = nullptr;
 
+struct with_dot : std::numpunct<char> {
+protected:
+	char do_thousands_sep() const override {
+		return '.';  // Separator for thousands
+	}
+
+	std::string do_grouping() const override {
+		return "\3";  // Groups of three digits
+	}
+};
+
+std::string formatMileage(int mileage) {
+	std::ostringstream oss;
+	oss.imbue(std::locale(oss.getloc(), new with_dot));
+	oss << mileage;
+	return oss.str();
+}
+
 DataManager* DataManager::Get()
 {
 	if (!sInstance) sInstance = new DataManager();
@@ -46,6 +64,16 @@ std::string DataManager::ToUpperCase(const std::string& input)
 		result += std::toupper(static_cast<unsigned char>(c));  // Use 'unsigned char' to avoid negative values
 	}
 	return result;
+}
+
+std::string DataManager::GetPrice()
+{
+	return formatMileage(mCar->Price) + " USD"; 
+}
+
+std::string DataManager::GetMileage()
+{
+	return formatMileage(mCar->Mileage) + " KM"; 
 }
 
 void DataManager::ParseUser(int userId)
@@ -138,7 +166,9 @@ std::string removeFirstWord(const std::string& str) {
 std::string DataManager::GetEngine()
 {	
 	if (mEngine.IsNull()) mEngine = mGMakes[mCar->Make.c_str()][mCar->Class.c_str()][mCar->Model.c_str()][mCar->Submodel.c_str()];
-	return ToUpperCase(removeFirstWord(mEngine["title"].GetString()));
+	std::string engine = removeFirstWord(mEngine["title"].GetString());
+	if (mCar->Make == "mercedesbenz") engine = removeFirstWord(engine);
+	return ToUpperCase(engine);
 }
 
 #include <iomanip>

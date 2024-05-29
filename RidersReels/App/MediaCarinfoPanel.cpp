@@ -7,24 +7,10 @@
 #include <iomanip>
 #include <sstream>
 #include <locale>
-
-struct with_dot : std::numpunct<char> {
-protected:
-	char do_thousands_sep() const override {
-		return '.';  // Separator for thousands
-	}
-
-	std::string do_grouping() const override {
-		return "\3";  // Groups of three digits
-	}
-};
-
-std::string formatMileage(int mileage) {
-	std::ostringstream oss;
-	oss.imbue(std::locale(oss.getloc(), new with_dot));
-	oss << mileage;
-	return oss.str();
-}
+#include "EProvince.h"
+#include "EDriveType.h"
+#include "ETransmission.h"
+#include "EBodyType.h"
 
 MediaCarInfoPanel::MediaCarInfoPanel(e3::Element* pParent) 
 	: FrameElement(pParent)
@@ -76,7 +62,7 @@ void MediaCarInfoPanel::Render()
 	if (!mMileageAdded && diff >= 200) 
 	{
 		mMileageAdded = true;
-		std::string mileage = formatMileage(pCar->Mileage) + " KM";
+		std::string mileage = DataManager::Get()->GetMileage();
 		CarInfoItem* pMileage = new CarInfoItem("mileage", mileage, "E906");
 		mFrame->AddElement(pMileage);
 	}
@@ -89,25 +75,25 @@ void MediaCarInfoPanel::Render()
 	if (!mTransmissionAdded && diff >= 300) 
 	{
 		mTransmissionAdded = true;
-		CarInfoItem* pTransmission = new CarInfoItem("transmission", "automatic", "E908");
+		CarInfoItem* pTransmission = new CarInfoItem("transmission", ETransmission::ToString(pCar->Transmission), "E908");
 		mFrame->AddElement(pTransmission);
 	}
 	if (!mLocationAdded && diff >= 350) 
 	{
 		mLocationAdded = true;
-		CarInfoItem* pLocation = new CarInfoItem("location", "lori", "E903");
+		CarInfoItem* pLocation = new CarInfoItem("location", EProvince::ToString(pCar->Province), "E903");
 		mFrame->AddElement(pLocation);
 	}
 	if (!mDriveTypeAdded && diff >= 400) 
 	{
 		mDriveTypeAdded = true;
-		CarInfoItem* pDriveType = new CarInfoItem("drive_type", "all_wheel_drive", "E90C");
+		CarInfoItem* pDriveType = new CarInfoItem("drive_type", EDriveType::ToString(pCar->DriveType), "E90C");
 		mFrame->AddElement(pDriveType);
 	}
 	if (!mBodyTypeAdded && diff >= 450) 
 	{
 		mBodyTypeAdded = true;
-		CarInfoItem* pBodyType = new CarInfoItem("body_type", "suv", "E90D");
+		CarInfoItem* pBodyType = new CarInfoItem("body_type", EBodyType::ToString(pCar->BodyType), "E90D");
 		mFrame->AddElement(pBodyType);
 	}
 	if (!mStWheelAdded && diff >= 500) 

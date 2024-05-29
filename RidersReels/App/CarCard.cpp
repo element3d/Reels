@@ -89,7 +89,7 @@ CarCard::CarCard(e3::Element* pParent)
 	pYearContInner->SetBackgroundColor(glm::vec4(255));
 	pYearContInner->SetAlignItemsHor(e3::EAlignment::End);
 	pYearContInner->SetHeight(26);
-	pYearContInner->SetPaddingRight(5);
+	pYearContInner->SetPaddingRight(8);
 	pYearContInner->SetWidth("100%");
 	pYearContInner->SetPositionType(e3::EPositionType::Absolute);
 	pYearContInner->SetTop(0);
@@ -107,7 +107,7 @@ CarCard::CarCard(e3::Element* pParent)
 	pYear->SetText(std::to_string(DataManager::Get()->GetCar()->Year));
 	pYear->SetFontSize(17);
 	pYear->SetFontFamily("open sans");
-	pYear->SetFontStyle(e3::EFontStyle::SemiBold);
+	pYear->SetFontStyle(e3::EFontStyle::Bold);
 	pYear->SetTextColor(glm::vec4(0, 0, 0, 255));
 	pYearContInner->AddElement(pYear);
 

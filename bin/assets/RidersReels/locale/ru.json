@@ -11,7 +11,13 @@
 	"st_wheel": "РУЛЬ",
 	"automatic": "АВТОМАТ",
 	"lori": "ЛОРИ",
+	"erevan": "ЕРЕВАН",
+	"kotayk": "КОТАЙК",
+	"shirak": "ШИРАК",
 	"rear_wheel_drive": "ЗАДНИЙ",
+	"all_wheel_drive": "ПОЛНЫЙ",
+	"front_wheel_drive": "ПЕРЕДНИЙ",
 	"sedan": "СЕДАН",
+	"suv": "ВНЕДОРОЖНИК",
 	"left": "ЛЕВЫЙ"
 }

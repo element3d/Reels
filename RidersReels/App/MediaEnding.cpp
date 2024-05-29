@@ -2,6 +2,7 @@
 #include "CarCard.h"
 #include "UserPanel.h"
 #include "Timeline.h"
+#include "DataManager.h"
 
 MediaEnding::MediaEnding(e3::Element* pParent) 
 	: FrameElement(pParent)
@@ -47,7 +48,7 @@ MediaEnding::MediaEnding(e3::Element* pParent)
 	mBuyButtonOverlay->SetBackgroundColor(glm::vec4(255));
 
 	e3::Text* pBuyNow = new e3::Text();
-	pBuyNow->SetText("17,500 USD");
+	pBuyNow->SetText(DataManager::Get()->GetPrice());
 	pBuyNow->SetTextColor(glm::vec4(0, 0, 0, 255));
 	pBuyNow->SetFontFamily("open sans");
 	pBuyNow->SetFontSize(40);

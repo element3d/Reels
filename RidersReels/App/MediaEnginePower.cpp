@@ -122,9 +122,9 @@ void MediaEnignePower::AnimateValueText()
 {
     mPower->SetOpacity(1);
     e3::Animation* pA = new e3::Animation(this);
-    pA->Start(0.4, 150, DataManager::Get()->GetPower(), [this](float v) {
+    pA->Start(0.4, 350, DataManager::Get()->GetPower(), [this](float v) {
         mValue->SetText(std::to_string(int(v)));
-        mPower->SetWidth((v - 150) * 1);
+        mPower->SetWidth((v - 350) * 1);
     }, [](){
             
     });

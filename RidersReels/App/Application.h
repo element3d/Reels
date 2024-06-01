@@ -7,6 +7,7 @@
 #include "MediaCarCard.h"
 #include "MediaAnimatedText2.h"
 #include "MediaStars.h"
+#include "CarProject.h"
 
 class Application : public ApplicationBase
 {
@@ -18,21 +19,11 @@ public:
 	void OnResize(float width, float height) override;
     virtual void Render() override;
 
-    e3::Element* mMain = nullptr;
   //  e3::Element* mLayer1Element = nullptr;
    // e3::Element* mLayer2Element = nullptr;
-    std::vector<e3::Element*> mLayers;
-    std::map<long, std::vector<FrameElement*>> mFrameElementPushMap;
-    std::map<long, std::vector<FrameElement*>> mFrameElementPopMap;
+   
     bool mFirstFrame = true;
-    MediaCarCard* mMediaCarCard = nullptr;
-    bool mMediaCarCardHidden = false;
-    MediaAnimatedText2* mMakeMedia = nullptr;
-    bool mMakeMedialHidden = false;
-    MediaAnimatedText2* mModelMedia = nullptr;
-    bool mModelMedialHidden = false;
-    MediaStars* mMediaStars = nullptr;
-    bool mMediaStarsHidden = false;
+    CarProject* mCarProject = nullptr;
 
     
 };
